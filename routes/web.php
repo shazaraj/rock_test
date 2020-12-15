@@ -44,8 +44,9 @@ Route::resource('/other_payments','OtherPaymentController');
 Route::post('client/sale/new', 'ClientController@add_new_sale')->name("client.store.sale");
 Route::get('client/bills', 'ClientController@client_bills');
 
-
-Route::get('client_bills', 'ClientController@client_sale_bills')->name("client.sale");
+Route::get('bills/{id}','ClientController@getbills');
+Route::get('client_sale_bills', 'ClientController@client_sale_bills')->name("client.sale");
+Route::get('importer_sale_bills', 'ImporterController@importer_sale_bills')->name("importer.sale");
 
 
 // importer bills ticket
@@ -59,7 +60,7 @@ Route::get('importer_sale', 'ImporterController@importer_new_sale_form');
 
 Route::get('receipt/index','ReceiptController@index');
 
-Route::get('importer_bills','ImporterDetailsController@index');
+//Route::get('importer_bills','ImporterDetailsController@index');
 
 Route::get('employee/paid_salary','EmpController@paid_salary_form');
 Route::get('employee/index','EmpController@index');

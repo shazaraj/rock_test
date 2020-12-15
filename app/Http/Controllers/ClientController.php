@@ -269,6 +269,18 @@ class ClientController extends Controller
 
 
 
+//    public function getbills($id){
+//
+//        $name = DB::table('clients_bills')->where('id',$id)->get()->name;
+//        $date = DB::table('clients_bills')->where('id',$id)->get()->created_at;
+//        $raw = DB::table('client_bill_raw_materials')->where('id',$id)->get()->raw_id;
+//        $amount_raw = DB::table('client_bill_raw_materials')->where('id',$id)->get()->amount;
+//        $factor = DB::table('client_bill_factoried_materials')->where('id',$id)->get()->raw_id;
+//        $amount_factor = DB::table('client_bill_factoried_materials')->where('id',$id)->get()->amount;
+//        return view('admin.bills.client_sale_bills',compact(["name","date","raw","amount_raw","factor","amount_factor"]));
+//
+//    }
+
     public function client_sale_bills(Request $request){
         //
         if ($request->ajax()) {
@@ -282,7 +294,9 @@ class ClientController extends Controller
                 ->addColumn('action', function ($row) {
 
 
-                    $btn = '<a href="' . route('client_bills', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
+//                    $btn = '<a href="' . route('client_bills', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
+
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
 
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
 
@@ -300,6 +314,7 @@ class ClientController extends Controller
 
         $bills = ClientBill::get()->remain;
         $client = Client::get()->name;
+
         return view("admin.bills.client_sale_bills", compact(["client","bills"]));
     }
 }

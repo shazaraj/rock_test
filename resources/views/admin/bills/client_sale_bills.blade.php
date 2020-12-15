@@ -33,7 +33,7 @@
                         <div class="col-md-11 pull-right text-right">
                             <div class="table-responsive">
                                 <br/>
-                                <table id="tableData" class="table table-bordered table-striped" dir="rtl">
+                                <table id="tableData" class="table table-striped table-dark" dir="rtl">
                                     <thead>
                                     <tr>
 
@@ -63,6 +63,22 @@
         <!-- /.content -->
     </div>
 
+    <div class="modal fade" id="billsModel" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content message-modal">
+
+                <div class="modal-header">
+                    <h4 class="model-title">تفاصيل الفاتورة</h4>
+                    <button type="button" class="close" data-dismiss="model">&times;</button>
+                </div>
+                <div class="modal-body" ></div>
+                <div class="modal-footer" >
+                    <button type="button" class="btn btn-default" data-toggle="modal"> إغلاق </button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('pageJs')
 
@@ -108,63 +124,64 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'client_name', name: 'client_name'},
+                    {data: 'name', name: 'name'},
                     {data: 'remain', name: 'remain'},
-                    {data: 'action', name: 'action', orderable: true, searchable: true},
+
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
 
                 ]
 
             });
 
+            // start model bills info
+            {{--$(document).on('click', '#billsModel', function(e){--}}
+            {{--    e.preventDefault();--}}
+            {{--    var url = $(this).data('url');--}}
+            {{--    $('.message-modal').html('');--}}
+            {{--    $('#modal-loader').show();--}}
+            {{--    $.ajax({--}}
+            {{--        url: {{route('getbills')}},--}}
+            {{--        type: 'GET',--}}
+            {{--        dataType: 'html'--}}
+            {{--    })--}}
+            {{--        .done(function(data){--}}
+            {{--            $('.message-modal').html('');--}}
+            {{--            $('.message-modal').html(data); // load response--}}
+            {{--            $('#modal-loader').hide();        // hide ajax loader--}}
+            {{--        })--}}
+            {{--        .fail(function(){--}}
+            {{--            $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');--}}
+            {{--            $('#modal-loader').hide();--}}
+            {{--        });--}}
+            {{--});--}}
 
-            $('#createNewProduct').click(function () {
-
-                $('#action').val("إضافة");
-
-                $('#_id').val('');
-
-                $('#productForm').trigger("reset");
-
-                $('#modelHeading').html("  إضافة مادة جديدة  ");
-
-
-            });
-
-
+            /// end model
             $('body').on('click', '.editProduct', function () {
 
                 var product_id = $(this).data('id');
 
                 $.get("{{ route('client.sale') }}" + '/' + product_id + '/edit', function (data) {
 
-                    $('#modelheading').html("تعديل بيانات الفاتورة");
+                    $('#modelheading').html("عرض بيانات الفاتورة");
 
                     $("#action").html("تعديل");
                     $("#action").val("تعديل");
                     $('#advertModal').modal('show');
-
-                    $('#_id').val(data.id);
-
-                    $('#importer_name').val(data.importer_name);
-                    $('#material_name').val(data.material_name);
-                    $('#amount').val(data.amount);
-                    $('#item_price').val(data.item_price);
-                    $('#price_sale').val(data.price_sale);
-                    $('#total_sale').val(data.total_sale);
-                    $('#date').val(data.date);
+                    //
+                    // columns: [
+                    //
+                    //     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    //     {data: 'name', name: 'name'},
+                    //     {data: 'type', name: 'type'},
+                    //     {data: 'phone', name: 'phone'},
+                    //     {data: 'mobile', name: 'mobile'},
+                    //     {data: 'main_account', name: 'main_account'},
+                    //     {data: 'action', name: 'action', orderable: false, searchable: false},
+                    //
+                    // ]
 
 
                 })
-
-            });
-
-
-            $('#action').click(function (e) {
-
-                e.preventDefault();
-
-                $(this).html('Sending..');
-
 
             });
 
@@ -183,7 +200,7 @@
 
                     type: "DELETE",
 
-                    url: "{{ route('clients.store') }}" + '/' + product_id,
+                    url: "{{ route('peices_type.store') }}" + '/' + product_id,
 
                     success: function (data) {
 
@@ -204,6 +221,6 @@
 
         });
 
-    </script>
+    </script>>
 
 @endpush

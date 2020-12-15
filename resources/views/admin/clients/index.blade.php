@@ -40,7 +40,7 @@
                                     </button>
                                 </div>
                                 <br/><br/>
-                                <table id="tableData" class="table table-bordered table-striped" dir="rtl">
+                                <table id="tableData" class="table table-bordered table-striped " dir="rtl">
                                     <thead>
                                     <tr>
 

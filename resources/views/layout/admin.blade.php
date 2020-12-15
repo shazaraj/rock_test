@@ -233,8 +233,8 @@
             </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="{{url('client_bills')}}"><i class="fa fa-circle-o"></i> فواتير الزبون   </a></li>
-                  <li><a href="{{url('importer_bills')}}"><i class="fa fa-circle-o"></i>  فواتير المورد    </a></li>
+                  <li><a href="{{url('client_sale_bills')}}"><i class="fa fa-circle-o"></i> فواتير الزبون   </a></li>
+                  <li><a href="{{url('importer_sale_bills')}}"><i class="fa fa-circle-o"></i>  فواتير المورد    </a></li>
                   <li><a href="{{url('other_payments')}}"><i class="fa fa-eye"></i>     فواتير أخرى       </a></li>
 
               </ul>

@@ -171,6 +171,7 @@ class ImporterController extends Controller
             compact(["client_types","main_accounts" ,"clients","cars","raw_materials","factoried_materials"]));
 
     }
+
     public  function add_new_sale(Request $request){
 
         $bill_id = ClientBill::create([
@@ -204,4 +205,40 @@ class ImporterController extends Controller
         return response()->json(["success"=>"تم الحفظ بنجاح"]);
 
     }
+
+    public function importer_sale_bills(Request $request){
+        //
+        if ($request->ajax()) {
+
+            $data = ImporterInvoices::latest()->get();
+
+            return Datatables::of($data)
+
+                ->addIndexColumn()
+
+                ->addColumn('action', function ($row) {
+
+
+                    $btn = '<a href="' . route('importer_bills', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
+
+
+                    return $btn;
+
+                })
+
+
+                ->rawColumns('action')
+                ->make(true);
+
+            return;
+        }
+
+        $bills = ImporterInvoices::get()->remain;
+
+        $clients = Client::where('client_type','=',1)->get()->name;
+        return view("admin.bills.importer_sale_bills", compact(["client","bills"]));
+    }
+
 }

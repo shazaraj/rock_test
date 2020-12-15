@@ -33,26 +33,14 @@
                         <div class="col-md-11 pull-right text-right">
                             <div class="table-responsive">
                                 <br/>
-                                <div align="right">
-                                    <button type="button" id="createNewProduct"
-                                            data-toggle="modal" data-target="#advertModal" class="btn btn-info btn-lg">
-                                        إضافة
-                                    </button>
-                                </div>
-                                <br/><br/>
-                                <table id="tableData" class="table table-bordered table-striped" dir="rtl">
+                                <table id="tableData"  class="table table-striped table-dark" dir="rtl">
                                     <thead>
                                     <tr>
 
-                                        <th width="5%"> #</th>
-                                        <th width="10%"> اسم المورد </th>
-                                        <th width="10%"> اسم المادة </th>
-                                        <th width="15%">  الكمية  </th>
-                                        <th width="15%">المبلغ المدفوع </th>
-                                        <th width="15%">المبلغ المتبقي </th>
-                                        <th width="15%">  التاريخ</th>
-
-                                        <th width="15%">العمليات</th>
+                                        <th width="10%"> #</th>
+                                        <th width="30%"> اسم المورد </th>
+                                        <th width="30%">المبلغ المستحق </th>
+                                        <th width="30%">العمليات</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -114,152 +102,20 @@
 
                 serverSide: true,
 
-                ajax: "{{ route('materials.index') }}",
+                ajax: "{{ route('importer.sale') }}",
 
                 columns: [
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'importer_name', name: 'importer_name'},
-                    {data: 'material_name', name: 'material_name'},
-                    {data: 'amount', name: 'amount'},
-                    {data: 'item_price', name: 'item_price'},
-                    {data: 'price_sale', name: 'price_sale'},
-                    {data: 'total_sale', name: 'total_sale'},
-                    {data: 'date', name: 'date'},
-                    {data: 'action', name: 'action', orderable: true, searchable: true},
+                    {data: 'name', name: 'name'},
+                    {data: 'remain', name: 'remain'},
+
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
 
                 ]
 
             });
-
-
-            $('#createNewProduct').click(function () {
-
-                $('#action').val("إضافة");
-
-                $('#_id').val('');
-
-                $('#productForm').trigger("reset");
-
-                $('#modelHeading').html("  إضافة مادة جديدة  ");
-
-
-            });
-
-
-            $('body').on('click', '.editProduct', function () {
-
-                var product_id = $(this).data('id');
-
-                $.get("{{ route('materials.index') }}" + '/' + product_id + '/edit', function (data) {
-
-                    $('#modelheading').html("تعديل بيانات المواد المستوردة");
-
-                    $("#action").html("تعديل");
-                    $("#action").val("تعديل");
-                    $('#advertModal').modal('show');
-
-                    $('#_id').val(data.id);
-
-                    $('#importer_name').val(data.importer_name);
-                    $('#material_name').val(data.material_name);
-                    $('#amount').val(data.amount);
-                    $('#item_price').val(data.item_price);
-                    $('#price_sale').val(data.price_sale);
-                    $('#total_sale').val(data.total_sale);
-                    $('#date').val(data.date);
-
-
-                })
-
-            });
-
-
-            $('#action').click(function (e) {
-
-                e.preventDefault();
-
-                $(this).html('Sending..');
-
-
-                $.ajax({
-
-                    data: $('#productForm').serialize(),
-
-                    url: "{{ route('materials.store') }}",
-
-                    type: "POST",
-
-                    dataType: 'json',
-
-                    success: function (data) {
-                        $('#action').html('إضافة');
-
-
-                        $('#productForm').trigger("reset");
-                        $('#advertModal').modal("hide");
-
-                        toastr.success('تم الحفظ بنجاح');
-                        table.draw();
-
-
-                    },
-
-                    error: function (data) {
-
-                        console.log('Error:', data);
-
-                        $('#action').html('إضافة');
-
-                    }
-
-                });
-
-            });
-            $('#editBtn').click(function (e) {
-
-                e.preventDefault();
-
-                $(this).html('saving..');
-
-
-                $.ajax({
-
-                    data: $('#productEditForm').serialize(),
-
-                    url: "{{ route('materials.store') }}",
-
-                    type: "POST",
-
-                    dataType: 'json',
-
-                    success: function (data) {
-                        $('#action').html('   حفظ التعديلات &nbsp; <i class="fa fa-save"></i> ');
-
-
-                        $('#productEditForm').trigger("reset");
-                        $('#ajaxModel').modal('hide');
-
-                        table.draw();
-
-                        toastr.success("تم التعديل بنجاح");
-
-                    },
-
-                    error: function (data) {
-
-                        console.log('Error:', data);
-                        $('#ajaxModel').modal('hide');
-
-                        $('#editBtn').html('Save changes &nbsp; <i class="fa fa-save"></i> ');
-
-                    }
-
-                });
-
-            });
-
 
             $('body').on('click', '.deleteProduct', function () {
 
@@ -276,7 +132,7 @@
 
                     type: "DELETE",
 
-                    url: "{{ route('materials.store') }}" + '/' + product_id,
+                    url: "{{ route('client.sale') }}" + '/' + product_id,
 
                     success: function (data) {
 
@@ -297,6 +153,6 @@
 
         });
 
-    </script>
+    </script>>
 
 @endpush
