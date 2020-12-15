@@ -210,7 +210,7 @@ class ImporterController extends Controller
         //
         if ($request->ajax()) {
 
-            $data = ImporterInvoices::latest()->get();
+            $data = ClientBill::latest()->get();
 
             return Datatables::of($data)
 
@@ -219,7 +219,7 @@ class ImporterController extends Controller
                 ->addColumn('action', function ($row) {
 
 
-                    $btn = '<a href="' . route('importer_bills', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
 
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
 
@@ -227,18 +227,25 @@ class ImporterController extends Controller
                     return $btn;
 
                 })
+                ->addColumn('bills',function ($row){
 
-
-                ->rawColumns('action')
+                    return ClientBill::find($row->id)->remain;
+                })
+                ->addColumn('client',function ($raw){
+//                    $client = Client::all();
+                    return Client::find($raw->client_id)->name;
+                })
+                ->rawColumns(['action','bills','client'])
                 ->make(true);
 
             return;
         }
 
-        $bills = ImporterInvoices::get()->remain;
+      //  $bills = ImporterInvoices::get();
 
-        $clients = Client::where('client_type','=',1)->get()->name;
-        return view("admin.bills.importer_sale_bills", compact(["client","bills"]));
+//        $client = Client::where('client_type','=',1)->get('name');
+//        return view("admin.bills.importer_sale_bills", compact(["client","bills"]));
+        return view("admin.bills.importer_sale_bills");
     }
 
 }

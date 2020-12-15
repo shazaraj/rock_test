@@ -60,7 +60,7 @@ Route::get('importer_sale', 'ImporterController@importer_new_sale_form');
 
 Route::get('receipt/index','ReceiptController@index');
 
-//Route::get('importer_bills','ImporterDetailsController@index');
+Route::get('importer_bills','ImporterDetailsController@index');
 
 Route::get('employee/paid_salary','EmpController@paid_salary_form');
 Route::get('employee/index','EmpController@index');

@@ -117,6 +117,36 @@
 
             });
 
+            $('body').on('click', '.editProduct', function () {
+
+                var product_id = $(this).data('id');
+
+                $.get("{{ route('client.sale') }}" + '/' + product_id + '/edit', function (data) {
+
+                    $('#modelheading').html("عرض بيانات الفاتورة");
+
+                    $("#action").html("تعديل");
+                    $("#action").val("تعديل");
+                    $('#advertModal').modal('show');
+                    //
+                    // columns: [
+                    //
+                    //     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    //     {data: 'name', name: 'name'},
+                    //     {data: 'type', name: 'type'},
+                    //     {data: 'phone', name: 'phone'},
+                    //     {data: 'mobile', name: 'mobile'},
+                    //     {data: 'main_account', name: 'main_account'},
+                    //     {data: 'action', name: 'action', orderable: false, searchable: false},
+                    //
+                    // ]
+
+
+                })
+
+            });
+
+
             $('body').on('click', '.deleteProduct', function () {
 
 
