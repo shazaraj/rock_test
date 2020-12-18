@@ -33,7 +33,7 @@
                         <div class="col-md-11 pull-right text-right">
                             <div class="table-responsive">
                                 <br/>
-                                <table id="tableData" class="table table-striped table-dark" dir="rtl">
+                                <table id="tableData"  class="table table-striped table-dark" dir="rtl">
                                     <thead>
                                     <tr>
 
@@ -62,23 +62,47 @@
         </section>
         <!-- /.content -->
     </div>
+    <div id="advertModal" class="modal fade">
+        <div class="modal-dialog" style="width: 90%;">
+            <form method="post" id="productForm" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> تفاصيل الفاتورة || <b> rock </b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <label> اسم العميل </label>
+                        <br/>
+{{-- for each loop to fetch data bills for any material --}}
+                        <label> اسم المادة </label>
+                        <label> || </label>
+                        <label> الكمية </label>
+                        <br/>
+{{-- end foreach loop --}}
+                        <label> المبلغ المدفوع </label>
+                        <br/>
+                        <label>  المبلغ الإجمالي </label>
+                        <br/>
+                        <label> المبلغ المتبقي </label>
+                        <br/>
+                        <label> تاريخ الفاتورة </label>
+                        <br/>
 
-    <div class="modal fade" id="billsModel" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content message-modal">
-
-                <div class="modal-header">
-                    <h4 class="model-title">تفاصيل الفاتورة</h4>
-                    <button type="button" class="close" data-dismiss="model">&times;</button>
+                    </div>
+                    <div class="modal-footer">
+                        <center>
+                            <input type="hidden" name="_id" id="_id"/>
+                            <input type="hidden" name="operation" id="operation"/>
+                            <input type="submit" name="action" id="action" class="btn btn-success" value="طباعة"/>
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
+                        </center>
+                    </div>
                 </div>
-                <div class="modal-body" ></div>
-                <div class="modal-footer" >
-                    <button type="button" class="btn btn-default" data-toggle="modal"> إغلاق </button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
+
+
 @endsection
 @push('pageJs')
 
@@ -133,57 +157,118 @@
 
             });
 
-            // start model bills info
-            {{--$(document).on('click', '#billsModel', function(e){--}}
-            {{--    e.preventDefault();--}}
-            {{--    var url = $(this).data('url');--}}
-            {{--    $('.message-modal').html('');--}}
-            {{--    $('#modal-loader').show();--}}
-            {{--    $.ajax({--}}
-            {{--        url: {{route('getbills')}},--}}
-            {{--        type: 'GET',--}}
-            {{--        dataType: 'html'--}}
-            {{--    })--}}
-            {{--        .done(function(data){--}}
-            {{--            $('.message-modal').html('');--}}
-            {{--            $('.message-modal').html(data); // load response--}}
-            {{--            $('#modal-loader').hide();        // hide ajax loader--}}
-            {{--        })--}}
-            {{--        .fail(function(){--}}
-            {{--            $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');--}}
-            {{--            $('#modal-loader').hide();--}}
-            {{--        });--}}
-            {{--});--}}
 
-            /// end model
             $('body').on('click', '.editProduct', function () {
 
                 var product_id = $(this).data('id');
 
                 $.get("{{ route('client.sale') }}" + '/' + product_id + '/edit', function (data) {
 
-                    $('#modelheading').html("عرض بيانات الفاتورة");
+                    $('#modelheading').html("تفاصيل الفاتورة");
 
-                    $("#action").html("تعديل");
-                    $("#action").val("تعديل");
+                    $("#action").html("طباعة");
+                    $("#action").val("طباعة");
                     $('#advertModal').modal('show');
-                    //
-                    // columns: [
-                    //
-                    //     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    //     {data: 'name', name: 'name'},
-                    //     {data: 'type', name: 'type'},
-                    //     {data: 'phone', name: 'phone'},
-                    //     {data: 'mobile', name: 'mobile'},
-                    //     {data: 'main_account', name: 'main_account'},
-                    //     {data: 'action', name: 'action', orderable: false, searchable: false},
-                    //
-                    // ]
+
+                    $('#_id').val(data.id);
+
+                    $('#name').val(data.name);
+                    $('#client_type_id').val(data.client_type);
+                    $('#phone').val(data.phone);
+                    $('#mobile').val(data.mobile);
+                    $('#account_id').val(data.main_account_id);
 
 
                 })
 
             });
+
+
+            $('#action').click(function (e) {
+
+                e.preventDefault();
+
+                $(this).html('Sending..');
+
+
+                $.ajax({
+
+                    data: $('#productForm').serialize(),
+
+                    url: "{{ route('clients.store') }}",
+
+                    type: "POST",
+
+                    dataType: 'json',
+
+                    success: function (data) {
+                        $('#action').html('طباعة');
+
+
+                        $('#productForm').trigger("reset");
+                        $('#advertModal').modal("hide");
+
+                        toastr.success('تم الحفظ بنجاح');
+                        table.draw();
+
+
+                    },
+
+                    error: function (data) {
+
+                        console.log('Error:', data);
+
+                        $('#action').html('طباعة');
+
+                    }
+
+                });
+
+            });
+            $('#editBtn').click(function (e) {
+
+                e.preventDefault();
+
+                $(this).html('saving..');
+
+
+                $.ajax({
+
+                    data: $('#productEditForm').serialize(),
+
+                    url: "{{ route('importer.sale') }}",
+
+                    type: "POST",
+
+                    dataType: 'json',
+
+                    success: function (data) {
+                        $('#action').html('   حفظ التعديلات &nbsp; <i class="fa fa-save"></i> ');
+
+
+                        $('#productEditForm').trigger("reset");
+                        $('#ajaxModel').modal('hide');
+
+                        table.draw();
+
+                        toastr.success("تم التعديل بنجاح");
+
+                    },
+
+                    error: function (data) {
+
+                        console.log('Error:', data);
+                        $('#ajaxModel').modal('hide');
+
+                        $('#editBtn').html('Save changes &nbsp; <i class="fa fa-save"></i> ');
+
+                    }
+
+                });
+
+            });
+
+
 
             $('body').on('click', '.deleteProduct', function () {
 
@@ -200,7 +285,7 @@
 
                     type: "DELETE",
 
-                    url: "{{ route('peices_type.store') }}" + '/' + product_id,
+                    url: "{{ route('client.sale') }}" + '/' + product_id,
 
                     success: function (data) {
 

@@ -45,12 +45,12 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="10%"> اسم المورد </th>
-                                        <th width="10%"> اسم المادة </th>
-                                        <th width="15%">  الكمية  </th>
-                                        <th width="15%"> سعر الشراء </th>
-                                        <th width="15%">السعر الإجمالي</th>
-                                        <th width="15%">  التاريخ</th>
+{{--                                        <th width="10%"> اسم المورد </th>--}}
+                                        <th width="20%"> اسم المادة </th>
+                                        <th width="20%">  الكمية  </th>
+                                        <th width="20%"> سعر الشراء </th>
+{{--                                        <th width="15%">السعر الإجمالي</th>--}}
+                                        <th width="20%">  التاريخ</th>
 
                                         <th width="15%">العمليات</th>
                                     </tr>
@@ -85,14 +85,14 @@
                     </div>
                     <div class="modal-body">
 
-                        <label> تحديد مورد </label>
-                        <select name="importer_name" id="importer_name" class="form-control select2">
-                            @if(count($import_raw) >0 )
-                                @foreach ($import_raw as $type)
-                                    <option value="{{$type->id}}">{{$type->name}}</option>
-                                @endforeach
-                            @endif
-                        </select>
+{{--                        <label> تحديد مورد </label>--}}
+{{--                        <select name="importer_name" id="importer_name" class="form-control select2">--}}
+{{--                            @if(count($import_raw) >0 )--}}
+{{--                                @foreach ($import_raw as $type)--}}
+{{--                                    <option value="{{$type->id}}">{{$type->name}}</option>--}}
+{{--                                @endforeach--}}
+{{--                            @endif--}}
+{{--                        </select>--}}
                         <label> اسم المادة </label>
                         <select name="material_name" id="material_name" class="form-control select2">
                             @if(count($raw_material) >0 )
@@ -106,17 +106,17 @@
                         <input type="text" name="amount" id="amount" class="form-control">
                         <br/>
                         <label> سعر الشراء </label>
-                        <input type="text" name="item_price" id="item_price" class="form-control">
+                        <input type="text" name="price" id="price" class="form-control">
                         <br/>
-                        <label> سعر المبيع </label>
-                        <input type="text" name="price_sale" id="price_sale" class="form-control">
-                        <br/>
+{{--                        <label> سعر المبيع </label>--}}
+{{--                        <input type="text" name="price_sale" id="price_sale" class="form-control">--}}
+{{--                        <br/>--}}
 {{--                        <label> السعر الاجمالي </label>--}}
 {{--                        <input type="text" name="total_bills" id="total_bills" class="form-control">--}}
 {{--                        <br/>--}}
-                        <label> اجمالي الفاتورة </label>
-                        <input type="text" name="total_sale" id="total_sale" class="form-control">
-                        <br/>
+{{--                        <label> اجمالي الفاتورة </label>--}}
+{{--                        <input type="text" name="total_sale" id="total_sale" class="form-control">--}}
+{{--                        <br/>--}}
                         <label> التاريخ </label>
                         <input type="date" name="date" id="date" class="form-control">
                         <br/>
@@ -179,12 +179,9 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'importer_name', name: 'importer_name'},
                     {data: 'material_name', name: 'material_name'},
                     {data: 'amount', name: 'amount'},
-                    {data: 'item_price', name: 'item_price'},
-                    {data: 'price_sale', name: 'price_sale'},
-                    {data: 'total_sale', name: 'total_sale'},
+                    {data: 'price', name: 'price'},
                     {data: 'date', name: 'date'},
                     {data: 'action', name: 'action', orderable: true, searchable: true},
 
@@ -213,7 +210,7 @@
 
                 $.get("{{ route('materials.index') }}" + '/' + product_id + '/edit', function (data) {
 
-                    $('#modelheading').html("تعديل بيانات المواد المستوردة");
+                    $('#modelheading').html("تعديل بيانات المواد ");
 
                     $("#action").html("تعديل");
                     $("#action").val("تعديل");
@@ -221,12 +218,12 @@
 
                     $('#_id').val(data.id);
 
-                    $('#importer_name').val(data.importer_name);
+                    // $('#importer_name').val(data.importer_name);
                     $('#material_name').val(data.material_name);
                     $('#amount').val(data.amount);
-                    $('#item_price').val(data.item_price);
-                    $('#price_sale').val(data.price_sale);
-                    $('#total_sale').val(data.total_sale);
+                    // $('#item_price').val(data.item_price);
+                    // $('#price_sale').val(data.price_sale);
+                    $('#price').val(data.price);
                     $('#date').val(data.date);
 
 

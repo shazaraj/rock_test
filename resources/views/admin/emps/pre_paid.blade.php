@@ -46,7 +46,7 @@
                                     </select>
 
                                     <label>  مقدار السلفة   </label>
-                                    <input type="text" name="paid" id="paid" >
+                                    <input type="text" name="paid" id="paid" value="{{$item->month_salary}}">
 
                                     <label> التاريخ    </label>
                                     <input type="date" name="salary_date" id="salary_date" >

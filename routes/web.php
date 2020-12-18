@@ -27,7 +27,7 @@ Route::resource('/factoried_materials','FactoriedMaterialController');
 Route::resource('/production_cards','ProductionCardController');
 Route::resource('/purchases','PurchaseController');
 Route::resource('/sales','SaleController');
-Route::resource('/importers','ImporterController');
+Route::resource('/importer','ImporterController');
 Route::resource('/materials','ImporterDetailsController');
 Route::resource('/importer/bills','ImporterController@bills');
 Route::resource('/employees','EmpController');
@@ -42,6 +42,7 @@ Route::resource('/other_payments','OtherPaymentController');
 //// end of bills ////
 
 Route::post('client/sale/new', 'ClientController@add_new_sale')->name("client.store.sale");
+Route::post('importer/sale/new', 'ImporterController@add_new_sale')->name("importer.store.sale");
 Route::get('client/bills', 'ClientController@client_bills');
 
 Route::get('bills/{id}','ClientController@getbills');

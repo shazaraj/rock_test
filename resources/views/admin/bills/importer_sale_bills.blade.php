@@ -62,6 +62,54 @@
         </section>
         <!-- /.content -->
     </div>
+    <div id="advertModal" class="modal fade">
+        <div class="modal-dialog" style="width: 90%;">
+            <form method="post" id="productForm" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"> تفاصيل الفاتورة || <b> rock </b></h4>
+                    </div>
+                    <input type="hidden" id="product_id">
+{{--                    ["clients","bills","factory","raws"])--}}
+                    @foreach($clients as $client)
+                        <div class="modal-body">
+                        <label> اسم العميل </label> {{$client->name}}
+                        @endforeach
+                        <br/>
+                        @foreach($factory as $fact)
+                            <label> اسم المادة المصنعة </label>{{$fact->raw_id}} <b> || </b>  <label> الكمية </label> {{$fact->amount}}
+                            <br/>
+                        @endforeach
+                        @foreach($raws as $raw)
+                            <label> اسم المادة الأولية </label>{{$raw->raw_id}} <b> || </b>  <label> الكمية </label> {{$raw->amount}}
+                            <br/>
+                        @endforeach
+                        @foreach($bills as $bill)
+                        <label> المبلغ المدفوع </label>  {{$bill->paid}}
+                        <br/>
+                        <label>  المبلغ الإجمالي </label> {{$bill->all_price}}
+                        <br/>
+                        <label> المبلغ المتبقي </label> {{$bill->remain}}
+                        <br/>
+                        <label> تاريخ الفاتورة </label> {{$bill->created_at}}
+                        <br/>
+                        @endforeach
+
+                    </div>
+                    <div class="modal-footer">
+                        <center>
+                            <input type="hidden" name="_id" id="_id"/>
+                            <input type="hidden" name="operation" id="operation"/>
+                            <input type="submit" name="action" id="action" class="btn btn-success" value="طباعة"/>
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
+                        </center>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
 @endsection
 @push('pageJs')
@@ -117,34 +165,117 @@
 
             });
 
+
             $('body').on('click', '.editProduct', function () {
 
                 var product_id = $(this).data('id');
 
-                $.get("{{ route('client.sale') }}" + '/' + product_id + '/edit', function (data) {
+                $.get("{{ route('importer.sale') }}" + '/' + product_id + '/view', function (data) {
 
-                    $('#modelheading').html("عرض بيانات الفاتورة");
+                    $('#modelheading').html("تفاصيل الفاتورة");
 
-                    $("#action").html("تعديل");
-                    $("#action").val("تعديل");
+                    $("#action").html("طباعة");
+                    $("#action").val("طباعة");
                     $('#advertModal').modal('show');
                     //
-                    // columns: [
+                    // $('#_id').val(data.id);
                     //
-                    //     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    //     {data: 'name', name: 'name'},
-                    //     {data: 'type', name: 'type'},
-                    //     {data: 'phone', name: 'phone'},
-                    //     {data: 'mobile', name: 'mobile'},
-                    //     {data: 'main_account', name: 'main_account'},
-                    //     {data: 'action', name: 'action', orderable: false, searchable: false},
-                    //
-                    // ]
+                    // $('#name').val(data.name);
+                    // $('#client_type_id').val(data.client_type);
+                    // $('#phone').val(data.phone);
+                    // $('#mobile').val(data.mobile);
+                    // $('#account_id').val(data.main_account_id);
 
 
                 })
 
             });
+
+
+            $('#action').click(function (e) {
+
+                e.preventDefault();
+
+                $(this).html('Sending..');
+
+
+                $.ajax({
+
+                    data: $('#productForm').serialize(),
+
+                    url: "{{ route('clients.store') }}",
+
+                    type: "POST",
+
+                    dataType: 'json',
+
+                    success: function (data) {
+                        $('#action').html('طباعة');
+
+
+                        $('#productForm').trigger("reset");
+                        $('#advertModal').modal("hide");
+
+                        toastr.success('تم الحفظ بنجاح');
+                        table.draw();
+
+
+                    },
+
+                    error: function (data) {
+
+                        console.log('Error:', data);
+
+                        $('#action').html('طباعة');
+
+                    }
+
+                });
+
+            });
+            $('#editBtn').click(function (e) {
+
+                e.preventDefault();
+
+                $(this).html('saving..');
+
+
+                $.ajax({
+
+                    data: $('#productEditForm').serialize(),
+
+                    url: "{{ route('importer.sale') }}",
+
+                    type: "POST",
+
+                    dataType: 'json',
+
+                    success: function (data) {
+                        $('#action').html('   حفظ التعديلات &nbsp; <i class="fa fa-save"></i> ');
+
+
+                        $('#productEditForm').trigger("reset");
+                        $('#ajaxModel').modal('hide');
+
+                        table.draw();
+
+                        toastr.success("تم التعديل بنجاح");
+
+                    },
+
+                    error: function (data) {
+
+                        console.log('Error:', data);
+                        $('#ajaxModel').modal('hide');
+
+                        $('#editBtn').html('Save changes &nbsp; <i class="fa fa-save"></i> ');
+
+                    }
+
+                });
+
+            });
+
 
 
             $('body').on('click', '.deleteProduct', function () {

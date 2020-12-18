@@ -149,7 +149,7 @@
               </a>
 
               <ul class="treeview-menu" >
-                  <li><a href="{{url('/importers')}}"><i class="fa fa-empire"></i> بطاقة مورد  </a></li>
+                  <li><a href="{{url('/importer')}}"><i class="fa fa-empire"></i> بطاقة مورد  </a></li>
                   <li><a href="{{url('/materials')}}"><i class="fa fa-empire"></i> بطاقة مادة موردة   </a></li>
                   <li><a href="{{url('/importer_sale')}}"><i class="fa fa-eye"></i>     مبيعات المورد  </a></li>
               </ul>

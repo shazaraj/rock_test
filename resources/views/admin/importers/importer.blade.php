@@ -83,9 +83,9 @@
                     </div>
                     <div class="modal-body">
                         <label> اسم المورد </label>
-                        <input type="text" name="importer_name" id="importer_name" class="form-control"/>
+                        <input type="text" name="name" id="name" class="form-control"/>
                         <br/>
-                        <input type="hidden" name="client_type_id" id="client_type_id" value="1"/>
+{{--                        <input type="hidden" name="client_type_id" id="client_type_id" value="1"/>--}}
                         <label> الهاتف </label>
                         <input type="text" name="phone" id="phone" class="form-control">
                         <br/>
@@ -153,13 +153,12 @@
 
                 serverSide: true,
 
-                ajax: "{{ route('importers.index') }}",
+                ajax: "{{ route('importer.index') }}",
 
                 columns: [
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'name', name: 'name'},
-                    {data: 'type', name: 'type'},
                     {data: 'phone', name: 'phone'},
                     {data: 'mobile', name: 'mobile'},
                     {data: 'main_account', name: 'main_account'},
@@ -188,7 +187,7 @@
 
                 var product_id = $(this).data('id');
 
-                $.get("{{ route('importers.index') }}" + '/' + product_id + '/edit', function (data) {
+                $.get("{{ route('importer.index') }}" + '/' + product_id + '/edit', function (data) {
 
                     $('#modelheading').html("تعديل بيانات المورد");
 
@@ -199,7 +198,6 @@
                     $('#_id').val(data.id);
 
                     $('#name').val(data.name);
-                    $('#client_type_id').val(data.client_type);
                     $('#phone').val(data.phone);
                     $('#mobile').val(data.mobile);
                     $('#account_id').val(data.main_account_id);
@@ -221,7 +219,7 @@
 
                     data: $('#productForm').serialize(),
 
-                    url: "{{ route('importers.store') }}",
+                    url: "{{ route('importer.store') }}",
 
                     type: "POST",
 
@@ -262,7 +260,7 @@
 
                     data: $('#productEditForm').serialize(),
 
-                    url: "{{ route('importers.store') }}",
+                    url: "{{ route('importer.store') }}",
 
                     type: "POST",
 
@@ -310,7 +308,7 @@
 
                     type: "DELETE",
 
-                    url: "{{ route('importers.store') }}" + '/' + product_id,
+                    url: "{{ route('importer.store') }}" + '/' + product_id,
 
                     success: function (data) {
 

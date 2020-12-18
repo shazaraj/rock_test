@@ -47,7 +47,8 @@
 {{--                                        <input type="hidden" name="emp_name" id="emp_name" value="{{$emps -> name}}">--}}
 
                                     <label> الراتب الشهري </label>
-                                    <input type="text" name="salary" id="salary" >
+
+                                    <input type="text" name="salary" id="salary" value="{{$item->month_salary}}" >
 
                                     <label> التاريخ    </label>
                                     <input type="date" name="salary_date" id="salary_date" >

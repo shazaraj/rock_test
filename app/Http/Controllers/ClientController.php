@@ -293,10 +293,7 @@ class ClientController extends Controller
 
                 ->addColumn('action', function ($row) {
 
-
-//                    $btn = '<a href="' . route('client_bills', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
-
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
 
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
 
@@ -304,17 +301,23 @@ class ClientController extends Controller
                     return $btn;
 
                 })
+                ->addColumn('bills',function ($row){
 
-
-                ->rawColumns('action')
+                    return ClientBill::find($row->id)->remain;
+                })
+                ->addColumn('client',function ($raw){
+//                    $client = Client::all();
+                    return Client::find($raw->client_id)->name;
+                })
+                ->rawColumns(['action','bills','client'])
                 ->make(true);
 
             return;
         }
 
-        $bills = ClientBill::get()->remain;
-        $client = Client::get()->name;
+//        $bills = ClientBill::get()->remain;
+//        $client = Client::get()->name;
 
-        return view("admin.bills.client_sale_bills", compact(["client","bills"]));
+        return view("admin.bills.client_sale_bills");
     }
 }

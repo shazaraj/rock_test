@@ -28,7 +28,7 @@ class ImporterController extends Controller
     public function index(Request $request){
         if ($request->ajax()) {
 
-            $data = Client::latest()->get();
+            $data = Client::where('client_type','=',1)->get();
 
             return Datatables::of($data)
 
@@ -60,9 +60,9 @@ class ImporterController extends Controller
             return;
         }
 
-        $clients = Client::where('client_type','=',1)->get();
+//        $clients = Client::where('client_type','=',1)->get();
         $main_account = MainAccount::all();
-        return view("admin.importers.importer", compact(["main_account" ,"clients"]));
+        return view("admin.importers.importer", compact('main_account'));
 
     }
 
@@ -87,7 +87,7 @@ class ImporterController extends Controller
         Client::updateOrCreate(['id' => $request->_id],
             [
                 'name' => $request->name,
-                'client_type' => $request->client_type_id,
+                'client_type' =>'1',
                 'phone' => $request->phone,
                 'mobile' => $request->mobile,
                 'main_account_id' => $request->account_id,
@@ -134,7 +134,7 @@ class ImporterController extends Controller
 
                 'name' => $request->get("name"),
                 'phone' => $request->get("phone"),
-                'client_type' => $request->get("client_type_id"),
+                'client_type' =>'1',
                 'mobile' => $request->get("mobile"),
                 'main_account_id' => $request->get("account_id"),
 
@@ -231,9 +231,8 @@ class ImporterController extends Controller
 
                     return ClientBill::find($row->id)->remain;
                 })
-                ->addColumn('client',function ($raw){
-//                    $client = Client::all();
-                    return Client::find($raw->client_id)->name;
+                ->addColumn('client'  ,function($row){
+                    return Client::find($row->client_id)->name;
                 })
                 ->rawColumns(['action','bills','client'])
                 ->make(true);
@@ -241,11 +240,13 @@ class ImporterController extends Controller
             return;
         }
 
-      //  $bills = ImporterInvoices::get();
+        $bills = ClientBill::get();
+        $raws = ClientBillRawMaterial::get();
+        $factory = ClientBillFactoriedMaterial::get();
 
-//        $client = Client::where('client_type','=',1)->get('name');
-//        return view("admin.bills.importer_sale_bills", compact(["client","bills"]));
-        return view("admin.bills.importer_sale_bills");
+        $clients = Client::where('client_type','=',1)->get();
+        return view("admin.bills.importer_sale_bills", compact(["clients","bills","factory","raws"]));
+//        return view("admin.bills.importer_sale_bills");
     }
 
 }

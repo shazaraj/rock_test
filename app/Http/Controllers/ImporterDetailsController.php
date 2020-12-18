@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use App\ImporterInvoiceDetails;
+use App\ImporterInvoicesDetails;
 use App\ImporterInvoices;
 use App\RawMaterial;
 use Illuminate\Http\Request;
+use DataTables;
 
 class ImporterDetailsController extends Controller
 {
@@ -22,7 +23,7 @@ class ImporterDetailsController extends Controller
         if ($request->ajax()) {
 
 
-            $data = ImporterInvoiceDetails::latest()->get();
+            $data = ImporterInvoicesDetails::latest()->get();
 
             return Datatables::of($data)
 
@@ -48,10 +49,10 @@ class ImporterDetailsController extends Controller
 
             return;
         }
-        $import_raw = Client::where('client_type','=',1)->get();
-        $raw_material = RawMaterial::all();;
+//        $import_raw = Client::where('client_type','=',1)->get();
+        $raw_material = RawMaterial::all();
 
-        return view("admin.importers.importer_bills" , compact(["import_raw","raw_material"]));
+        return view("admin.importers.importer_bills" , compact('raw_material'));
 
     }
 
@@ -73,16 +74,13 @@ class ImporterDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        ImporterInvoiceDetails::updateOrCreate(['id' => $request->_id],
+        ImporterInvoicesDetails::updateOrCreate(['id' => $request->_id],
 
             [
 //                'importer_id' => $request->importer_id,
                 'material_id' => $request->material_id,
                 'amount' => $request->amount,
                 'price' => $request->price,
-//                'item_price' => $request->item_price,
-//                'price_sale' => $request->price_sale,
-//                'total_sale' => $request->total_sale,
                 'date' => $request->date,
 
             ]);
@@ -95,10 +93,10 @@ class ImporterDetailsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ImporterInvoiceDetails  $ivd
+     * @param  \App\ImporterInvoicesDetails  $ivd
      * @return \Illuminate\Http\Response
      */
-    public function show(ImporterInvoiceDetails $ivd)
+    public function show(ImporterInvoicesDetails $ivd)
     {
         //
     }
@@ -106,12 +104,12 @@ class ImporterDetailsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ImporterInvoiceDetails  $id
+     * @param  \App\ImporterInvoicesDetails  $id
      * @return \Illuminate\Http\Response
      */
     public function edit( $id)
     {
-        $item = ImporterInvoiceDetails::find($id);
+        $item = ImporterInvoicesDetails::find($id);
 
         return response()->json($item);
     }
@@ -125,7 +123,7 @@ class ImporterDetailsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        ImporterInvoiceDetails::updateOrCreate(['id' => $id],
+        ImporterInvoicesDetails::updateOrCreate(['id' => $id],
 
             [
 //                'importer_id' => $request->get("importer_id"),
@@ -145,7 +143,7 @@ class ImporterDetailsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ImporterInvoiceDetails $id
+     * @param  \App\ImporterInvoicesDetails $id
      * @return \Illuminate\Http\Response
      */
     public function destroy( $id)

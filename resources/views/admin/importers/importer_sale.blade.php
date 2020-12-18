@@ -41,9 +41,9 @@
 
         <label> اسم المورد </label>
         <select name="client_id" id="client_id" class="js-data select2">
-            @if(count($clients) >0 )
-            @foreach ($clients as $client_type)
-            <option value="{{$client_type->id}}">{{$client_type->name}}</option>
+            @if(count($importer) >0 )
+            @foreach ($importer as $importers)
+            <option value="{{$importers->id}}">{{$importers->name}}</option>
             @endforeach
             @endif
         </select>
@@ -233,7 +233,7 @@
                         <label> اسم المورد </label>
                        <input type="text" name="name" id="name" class="form-control"  />
                         <br/>
-                        <input type="hidden" name="client_type_id" id="client_type_id" value="1"/>
+{{--                        <input type="hidden" name="client_type_id" id="client_type_id" value="1"/>--}}
                        <br/>
                         <label> الهاتف </label>
                         <input type="text" name="phone" id="phone" class="form-control">
@@ -389,14 +389,13 @@
 
                 serverSide: true,
 
-                ajax: "{{ route('clients.index') }}",
+                ajax: "{{ route('importer.index') }}",
 
                 columns: [
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
                     {data: 'name', name: 'name'},
-                    {data: 'client_type_id', name: 'client_type_id'},
                     {data: 'phone', name: 'phone'},
                     {data: 'mobile', name: 'mobile'},
                     {data: 'main_account', name: 'main_account'},
@@ -425,7 +424,7 @@
 
                 var product_id = $(this).data('id');
 
-                $.get("{{ route('clients.index') }}" + '/' + product_id + '/edit', function (data) {
+                $.get("{{ route('importer.index') }}" + '/' + product_id + '/edit', function (data) {
 
                     $('#modelheading').html("تعديل بيانات المورد");
 
@@ -436,7 +435,6 @@
                     $('#_id').val(data.id);
 
                     $('#name').val(data.name);
-                    $('#client_type_id').val(data.client_type);
                     $('#phone').val(data.phone);
                     $('#mobile').val(data.mobile);
                     $('#account_id').val(data.main_account_id);
@@ -458,7 +456,7 @@
 
                     data: $('#productForm').serialize(),
 
-                    url: "{{ route('clients.store') }}",
+                    url: "{{ route('importer.store') }}",
 
                     type: "POST",
 
@@ -500,7 +498,7 @@
 
                     data: $('#client_sale_form').serialize(),
 
-                    url: "{{ route('client.store.sale') }}",
+                    url: "{{ route('importer.store.sale') }}",
 
                     type: "POST",
 
@@ -537,7 +535,7 @@
 
                     data: $('#productEditForm').serialize(),
 
-                    url: "{{ route('clients.store') }}",
+                    url: "{{ route('importer.store') }}",
 
                     type: "POST",
 
@@ -585,7 +583,7 @@
 
                     type: "DELETE",
 
-                    url: "{{ route('clients.store') }}" + '/' + product_id,
+                    url: "{{ route('importer.store') }}" + '/' + product_id,
 
                     success: function (data) {
 
