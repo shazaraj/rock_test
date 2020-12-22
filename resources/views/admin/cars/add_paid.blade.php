@@ -50,7 +50,7 @@
                                         <th width="10%"> المبلغ  </th>
                                         <th width="10%"> التاريخ</th>
 
-                                        <th width="20%">العمليات</th>
+{{--                                        <th width="20%">العمليات</th>--}}
                                     </tr>
                                     </thead>
                                 </table>
@@ -101,7 +101,8 @@
                         </select>
                         <br/>
                         <label> راتب السائق   </label>
-                        <input type="text" name="driver_salary" id="driver_salary" class="form-control" value="{{$salary->driver_salary}}">
+
+                        <input type="text" name="driver_salary" id="driver_salary" class="form-control" >
 
                         <br/>
                         <label>  عن شهر     </label>
@@ -138,6 +139,15 @@
 
             });
 
+         $("#car_id").on('change',function (){
+             var product_id  = $(this).val();
+                 $.get("{{ route('cars.index') }}" + '/' + product_id + '/edit', function (data) {
+
+                 $('#driver_salary').val(data.driver_salary);
+
+
+             })
+         })
 
             var table = $('#tableData').DataTable({
                 "language": {
@@ -170,7 +180,8 @@
                     {data: 'date_selected', name: 'date_selected'},
 
 
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                    // {data: 'action', name: 'action'
+                    //     , orderable: false, searchable: false},
 
                 ]
 

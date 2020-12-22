@@ -42,7 +42,7 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="25%"> رقم السسيارة</th>
+                                        <th width="25%"> رقم السيارة</th>
                                         <th width="10%"> نوعها</th>
                                         <th width="10%"> الزبون  </th>
                                         <th width="10%">  الأجار    </th>
@@ -89,8 +89,7 @@
                         <input type="text" name="car_type" id="car_type" class="form-control">
                         <br/>
                         <label> راتب السائق   </label>
-                        <input type="text" name="driver_salary" id="driver_salary" class="form-control">
-
+                                <input type="text" name="driver_salary" id="driver_salary" class="form-control" >
                         <br/>
                         <label>  إسم السائق   </label>
                         <input type="text" name="driver_name" id="driver_name" class="form-control">
@@ -125,7 +124,6 @@
                 }
 
             });
-
 
             var table = $('#tableData').DataTable({
                 "language": {

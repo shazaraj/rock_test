@@ -28,6 +28,9 @@ class ImporterDetailsController extends Controller
             return Datatables::of($data)
 
                 ->addIndexColumn()
+                ->addColumn('name'  ,function($row){
+                    return RawMaterial::find($row->material_id)->name;
+                })
 
                 ->addColumn('action', function($row){
 
@@ -44,7 +47,7 @@ class ImporterDetailsController extends Controller
                     return $btn;
 
                 })
-
+                ->rawColumns(['action', 'name'])
                 ->make(true);
 
             return;
@@ -149,7 +152,7 @@ class ImporterDetailsController extends Controller
     public function destroy( $id)
     {
 
-        Emp::find($id)->delete();
+        ImporterInvoicesDetails::find($id)->delete();
 
         return response()->json(['success'=>' تم الحذف بنجاح']);
     }

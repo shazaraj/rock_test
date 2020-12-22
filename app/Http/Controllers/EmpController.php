@@ -156,7 +156,7 @@ class EmpController extends Controller
         // select emp where is_deleted != 1 to avoid problem with old report
 
         $is_deleted = 1;
-        Emp::find($id)->update(["is_deleted"=>$is_deleted]);
+        Emp::where('id','=',$id)->update(["is_deleted"=>$is_deleted]);
 
 
         return response()->json(['success'=>' تم الحذف بنجاح']);
@@ -164,7 +164,8 @@ class EmpController extends Controller
 
      public function paid_salary_form()
     {
-        $emps = Emp::all();
+        $emps = Emp::latest()->where('is_deleted','=',0)->get();
+
         return view('admin.emps.salary', compact('emps'));
     }
     public function get_emp_salaries_history(Request $request, $emp_id){
@@ -177,30 +178,30 @@ class EmpController extends Controller
 
                 ->addIndexColumn()
 
-
-                ->addColumn('action', function($row){
-
-
-
-
-                    //                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">تعديل</a>';
-
-
-
-                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">حذف</a>';
-
-
-
-                    return $btn;
-
-                })
+//
+//                ->addColumn('action', function($row){
+//
+//
+//
+//
+//                    //                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">تعديل</a>';
+//
+//
+//
+//                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">حذف</a>';
+//
+//
+//
+//                    return $btn;
+//
+//                })
                 ->addColumn('name', function ($row){
                     return Emp::find($row->emp_id)->name;
 
                 })
 
 
-                ->rawColumns(['action'])
+//                ->rawColumns(['action'])
 
                 ->make(true);
 
@@ -225,7 +226,8 @@ class EmpController extends Controller
 
     public function pre_paid_form()
     {
-        $emps = Emp::all();
+        $emps = Emp::latest()->where('is_deleted','=',0)->get();
+
         return view('admin.emps.pre_paid', compact('emps'));
     }
     public function get_emp_pre_paid_history(Request $request, $emp_id){
@@ -254,7 +256,8 @@ class EmpController extends Controller
 
                     return $btn;
 
-                })->addColumn("name",function ($row){
+                })
+                ->addColumn("name",function ($row){
                     return Emp::find($row->emp_id)->name;
                 })
 

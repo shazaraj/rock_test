@@ -12,7 +12,7 @@
 
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-                    <li><a href="#"> بطاقة  مواد مصنعة  </a></li>
+                    <li><a href="#"> بطاقة  مادة مصنعة  </a></li>
 
                 </ol>
             </h6>
@@ -45,7 +45,7 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="25%"> نوع الماة </th>
+                                        <th width="25%"> نوع المادة </th>
                                         <th width="20%"> الكمية</th>
                                         <th width="310%"> العامل</th>
 
@@ -78,7 +78,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">إضافة زبون جديد</h4>
+                        <h4 class="modal-title">إضافة مادة جديدة</h4>
                     </div>
                     <div class="modal-body">
 

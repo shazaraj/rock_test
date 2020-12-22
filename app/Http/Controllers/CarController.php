@@ -44,8 +44,10 @@ class CarController extends Controller
                     return $btn;
 
                 })
-
-                ->rawColumns(['action', 'type', 'refactoring'])
+                ->addColumn('driver_salary',function($car){
+                    return Car::where('id','=',$car->car_id)->first()->driver_salary;
+                })
+                ->rawColumns(['action', 'type', 'refactoring','driver_salary'])
 
                 ->make(true);
 
@@ -128,22 +130,22 @@ class CarController extends Controller
 
                 ->addIndexColumn()
 
-
-                ->addColumn('action', function($row){
-
-
-
-//                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">تعديل</a>';
-
-
-
-                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">حذف</a>';
-
-
-
-                    return $btn;
-
-                })
+//
+//                ->addColumn('action', function($row){
+//
+//
+//
+////                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">تعديل</a>';
+//
+//
+//
+////                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">حذف</a>';
+//
+//
+//
+//                    return $btn;
+//
+//                })
                 ->addColumn('driver_name',function($car){
                     return Car::where('id','=',$car->car_id)->first()->driver_name;
                 })

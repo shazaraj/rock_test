@@ -242,15 +242,23 @@ class ClientController extends Controller
         ])->id;
         for($i =0 ;$i<count($request->raws_id) ;$i++) {
         ClientBillRawMaterial::create([
-            "bill_id"=>$bill_id, "raw_id"=>$request->raws_id[$i],"single_price"=>$request->raws_price[$i]/$request->raws_qua[$i],
-            "amount"=>$request->raws_qua[$i],"full_price"=>$request->raws_price[$i],"notes"=>"No"
+            "bill_id"=>$bill_id,
+            "raw_id"=>$request->raws_id[$i],
+            "single_price"=>$request->raws_price[$i]/$request->raws_qua[$i],
+            "amount"=>$request->raws_qua[$i],
+            "full_price"=>$request->raws_price[$i],
+            "notes"=>"No"
         ]);
         }
 
         for($i =0 ;$i<count($request->fs_id) ;$i++) {
         ClientBillFactoriedMaterial::create([
-            "bill_id"=>$bill_id, "raw_id"=>$request->fs_id[$i],"single_price"=>$request->fs_price[$i]/$request->fs_qua[$i],
-            "amount"=>$request->fs_qua[$i],"full_price"=>$request->fs_price[$i],"notes"=>"No"
+            "bill_id"=>$bill_id,
+            "raw_id"=>$request->fs_id[$i],
+            "single_price"=>$request->fs_price[$i]/$request->fs_qua[$i],
+            "amount"=>$request->fs_qua[$i],
+            "full_price"=>$request->fs_price[$i],
+            "notes"=>"No"
         ]);
         }
         if(!empty($request->deliver_coast) && intval($request->deliver_coast) > 0){
@@ -269,23 +277,44 @@ class ClientController extends Controller
 
 
 
-//    public function getbills($id){
-//
-//        $name = DB::table('clients_bills')->where('id',$id)->get()->name;
-//        $date = DB::table('clients_bills')->where('id',$id)->get()->created_at;
-//        $raw = DB::table('client_bill_raw_materials')->where('id',$id)->get()->raw_id;
-//        $amount_raw = DB::table('client_bill_raw_materials')->where('id',$id)->get()->amount;
-//        $factor = DB::table('client_bill_factoried_materials')->where('id',$id)->get()->raw_id;
-//        $amount_factor = DB::table('client_bill_factoried_materials')->where('id',$id)->get()->amount;
+    public function getbills($id){
+            $bill = ClientBill::with('raw_materials')->with('factoried_materials')->find($id);
+            $client = Client::find($bill->client_id)->name;
+            $row_m = [];
+        if(!empty($bill->raw_materials) && count($bill->raw_materials) > 0)
+
+            foreach ($bill->raw_materials as $item){
+                $raw =   ClientBillRawMaterial::find($item->raw_id);
+                $item2 = [
+                    "name"=>$raw->raw_id,
+                    "amount"=>$raw->amount,
+                ];
+                $row_m[] = $item2;
+            }
+
+            $fac_n = [];
+            if(!empty($bill->factoried_materials) && count($bill->factoried_materials) > 0)
+            foreach ($bill->factoried_materials as $item){
+                $raw = ClientBillFactoriedMaterial::find($item->raw_id);
+                $item2 = [
+                    "name"=>$raw->raw_id,
+                    "amount"=>$raw->amount,
+                ];
+                $fac_n[] = $item2;
+            }
+return  response()->json(["bill"=>$bill , "raws"=>$row_m, "f_m"=>$fac_n,"client"=>$client]);
 //        return view('admin.bills.client_sale_bills',compact(["name","date","raw","amount_raw","factor","amount_factor"]));
-//
-//    }
+
+    }
 
     public function client_sale_bills(Request $request){
         //
         if ($request->ajax()) {
 
-            $data = ClientBill::latest()->get();
+//            = Client::all();
+            $data = ClientBill::get();
+
+//            $data = ClientBill::latest()->get();
 
             return Datatables::of($data)
 
@@ -293,7 +322,7 @@ class ClientController extends Controller
 
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
 
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
 
@@ -301,15 +330,14 @@ class ClientController extends Controller
                     return $btn;
 
                 })
-                ->addColumn('bills',function ($row){
-
-                    return ClientBill::find($row->id)->remain;
-                })
                 ->addColumn('client',function ($raw){
 //                    $client = Client::all();
                     return Client::find($raw->client_id)->name;
                 })
-                ->rawColumns(['action','bills','client'])
+//               ->addColumn('client',function($client){
+//                    return Client::where('id','=',$client->client_id)->first()->name;
+//                })
+                ->rawColumns(['action','client'])
                 ->make(true);
 
             return;

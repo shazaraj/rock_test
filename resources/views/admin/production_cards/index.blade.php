@@ -78,7 +78,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">إضافة زبون جديد</h4>
+                        <h4 class="modal-title">إضافة مادة جديدة </h4>
                     </div>
                     <div class="modal-body">
 

@@ -192,7 +192,7 @@
 
                 $.get("{{ route('raw_materials.index') }}" + '/' + product_id + '/edit', function (data) {
 
-                    $('#modelheading').html("تعديل بيانات الزبون");
+                    $('#modelheading').html("تعديل بيانات المادة");
 
                     $("#action").html("تعديل");
                     $("#action").val("تعديل");

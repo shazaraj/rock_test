@@ -94,7 +94,7 @@
 {{--                            @endif--}}
 {{--                        </select>--}}
                         <label> اسم المادة </label>
-                        <select name="material_name" id="material_name" class="form-control select2">
+                        <select name="material_id" id="material_id" class="form-control select2">
                             @if(count($raw_material) >0 )
                                 @foreach ($raw_material as $raw)
                                     <option value="{{$raw->id}}">{{$raw->name}}</option>
@@ -179,7 +179,7 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'material_name', name: 'material_name'},
+                    {data: 'name', name: 'name'},
                     {data: 'amount', name: 'amount'},
                     {data: 'price', name: 'price'},
                     {data: 'date', name: 'date'},

@@ -48,7 +48,7 @@
 
                                     <label> الراتب الشهري </label>
 
-                                    <input type="text" name="salary" id="salary" value="{{$item->month_salary}}" >
+                                    <input type="text" name="salary" id="salary" value="" >
 
                                     <label> التاريخ    </label>
                                     <input type="date" name="salary_date" id="salary_date" >
@@ -64,15 +64,15 @@
                                     <thead>
                                     <tr>
 
-                                        <th width="5%"> #</th>
+                                        <th width="10%"> #</th>
 
 
-                                        <th width="20%"> اسم الموظف </th>
+                                        <th width="30%"> اسم الموظف </th>
 
-                                        <th width="25%"> الراتب  المقبوض</th>
-                                        <th width="25%"> عن شهر  </th>
+                                        <th width="30%"> الراتب  المقبوض</th>
+                                        <th width="30%"> عن شهر  </th>
 
-                                        <th width="25%">العمليات</th>
+{{--                                        <th width="25%">العمليات</th>--}}
                                     </tr>
                                     </thead>
                                 </table>
@@ -107,6 +107,14 @@ var table = null;
 
 var emp_sal_url = "{{ route('employee.get_salaries_view') }}"+'/'+emp_id;
 
+                    $.get("{{ route('employees.index') }}" + '/' + emp_id + '/edit', function (data) {
+
+                        $('#salary').val(data.month_salary);
+
+
+
+                    })
+
     // $('#tableData').clear();
       table = $('#tableData').DataTable({
           "bDestroy":true,
@@ -140,7 +148,7 @@ var emp_sal_url = "{{ route('employee.get_salaries_view') }}"+'/'+emp_id;
                     {data: 'salary', name: 'salary'},
                     {data: 'salary_date', name: 'salary_date'},
 
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                    // {data: 'action', name: 'action', orderable: false, searchable: false},
 
                 ]
 
@@ -158,43 +166,43 @@ var emp_sal_url = "{{ route('employee.get_salaries_view') }}"+'/'+emp_id;
             });
 
 
-            table = $('#tableData').DataTable({
-                "bDestroy":true,
-                "language": {
-                    "processing": " جاري المعالجة",
-                    "paginate": {
-                        "first": "الأولى",
-                        "last": "الأخيرة",
-                        "next": "التالية",
-                        "previous": "السابقة"
-                    },
-                    "search": "البحث :",
-                    "loadingRecords": "جاري التحميل...",
-                    "emptyTable": " لا توجد بيانات",
-                    "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",
-                    "infoEmpty": "Showing 0 إلى 0 من 0 entries",
-                    "lengthMenu": "إظهار _MENU_ البيانات",
-                },
-                processing: true,
+            {{--table = $('#tableData').DataTable({--}}
+            {{--    "bDestroy":true,--}}
+            {{--    "language": {--}}
+            {{--        "processing": " جاري المعالجة",--}}
+            {{--        "paginate": {--}}
+            {{--            "first": "الأولى",--}}
+            {{--            "last": "الأخيرة",--}}
+            {{--            "next": "التالية",--}}
+            {{--            "previous": "السابقة"--}}
+            {{--        },--}}
+            {{--        "search": "البحث :",--}}
+            {{--        "loadingRecords": "جاري التحميل...",--}}
+            {{--        "emptyTable": " لا توجد بيانات",--}}
+            {{--        "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",--}}
+            {{--        "infoEmpty": "Showing 0 إلى 0 من 0 entries",--}}
+            {{--        "lengthMenu": "إظهار _MENU_ البيانات",--}}
+            {{--    },--}}
+            {{--    processing: true,--}}
 
-                serverSide: true,
+            {{--    serverSide: true,--}}
 
-                ajax: "{{ route('employee.get_salaries_view') }}"+'/'+$("#emp_id").val(),
+            {{--    ajax: "{{ route('employee.get_salaries_view') }}"+'/'+$("#emp_id").val(),--}}
 
-                columns: [
+            {{--    columns: [--}}
 
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {{--        {data: 'DT_RowIndex', name: 'DT_RowIndex'},--}}
 
 
-                    {data: 'name', name: 'name'},
-                    {data: 'salary', name: 'salary'},
-                    {data: 'salary_date', name: 'salary_date'},
+            {{--        {data: 'name', name: 'name'},--}}
+            {{--        {data: 'salary', name: 'salary'},--}}
+            {{--        {data: 'salary_date', name: 'salary_date'},--}}
 
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
+            {{--        {data: 'action', name: 'action', orderable: false, searchable: false},--}}
 
-                ]
+            {{--    ]--}}
 
-            });
+            {{--});--}}
 
 
             $('#createNewProduct').click(function () {

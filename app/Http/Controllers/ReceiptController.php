@@ -27,6 +27,9 @@ class ReceiptController extends Controller
             return Datatables::of($data)
 
                 ->addIndexColumn()
+                ->addColumn('name'  ,function($row){
+                    return Client::find($row->importer_id)->name;
+                })
 
                 ->addColumn('action', function($row){
 
@@ -73,7 +76,7 @@ class ReceiptController extends Controller
      */
     public function store(Request $request)
     {
-        Receipt::updateOrCreate(['id' => $request->new_id],
+        Receipt::updateOrCreate(['id' => $request->_id],
 
             [
                 'importer_id' => $request->importer_id,

@@ -72,20 +72,34 @@
                     </div>
                     <div class="modal-body">
                         <label> اسم العميل </label>
+                        <input type="text" id="name" disabled>
                         <br/>
+
 {{-- for each loop to fetch data bills for any material --}}
-                        <label> اسم المادة </label>
-                        <label> || </label>
-                        <label> الكمية </label>
+                        <div >
+                            <table>
+                               <thead>
+                               <tr>
+                                   <th> اسم المادة |  </th>
+                                   <th>  الكمية </th>
+                               </tr>
+                               </thead>
+                                <tbody id="raws"></tbody>
+                            </table>
+                        </div>
                         <br/>
 {{-- end foreach loop --}}
                         <label> المبلغ المدفوع </label>
+                        <input type="text" id="paid" disabled>
                         <br/>
                         <label>  المبلغ الإجمالي </label>
+                        <input type="text" id="price" disabled>
                         <br/>
                         <label> المبلغ المتبقي </label>
+                        <input type="text" id="remain" disabled>
                         <br/>
                         <label> تاريخ الفاتورة </label>
+                        <input type="text" id="date" disabled>
                         <br/>
 
                     </div>
@@ -148,7 +162,7 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'name', name: 'name'},
+                    {data: 'client', name: 'name'},
                     {data: 'remain', name: 'remain'},
 
                     {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -164,7 +178,7 @@
 
                 $.get("{{ route('client.sale') }}" + '/' + product_id + '/edit', function (data) {
 
-                    $('#modelheading').html("تفاصيل الفاتورة");
+                    $('#modelheading').html("عرض تفاصيل الفاتورة");
 
                     $("#action").html("طباعة");
                     $("#action").val("طباعة");
@@ -172,11 +186,23 @@
 
                     $('#_id').val(data.id);
 
-                    $('#name').val(data.name);
-                    $('#client_type_id').val(data.client_type);
-                    $('#phone').val(data.phone);
-                    $('#mobile').val(data.mobile);
-                    $('#account_id').val(data.main_account_id);
+                    $('#name').val(data.client);
+                    $("#raws").html("");
+                    if(data.raws){
+                        var x = "";
+                        for(var i =0; i< data.raws.length;i++){
+                          //  alert(data.raws[i].name);
+                            x +="<tr > " +
+                                "<td> " + data.raws[i].name +" </td>" +
+                                "<td> " + data.raws[i].amount +" </td>" +
+                            "</tr>";
+                        }
+                        $("#raws").html( x);
+                    }
+                    $('#paid').val(data.bill.paid);
+                    $('#price').val(data.bill.all_price);
+                    $('#remain').val(data.bill.remain);
+                    $('#date').val(data.bill.created_at);
 
 
                 })
@@ -202,7 +228,7 @@
                     dataType: 'json',
 
                     success: function (data) {
-                        $('#action').html('طباعة');
+                        $('#action').html('إضافة');
 
 
                         $('#productForm').trigger("reset");
@@ -218,7 +244,7 @@
 
                         console.log('Error:', data);
 
-                        $('#action').html('طباعة');
+                        $('#action').html('إضافة');
 
                     }
 
@@ -236,7 +262,7 @@
 
                     data: $('#productEditForm').serialize(),
 
-                    url: "{{ route('importer.sale') }}",
+                    url: "{{ route('clients.store') }}",
 
                     type: "POST",
 
@@ -267,7 +293,6 @@
                 });
 
             });
-
 
 
             $('body').on('click', '.deleteProduct', function () {

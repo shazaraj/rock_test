@@ -47,6 +47,7 @@ Route::get('client/bills', 'ClientController@client_bills');
 
 Route::get('bills/{id}','ClientController@getbills');
 Route::get('client_sale_bills', 'ClientController@client_sale_bills')->name("client.sale");
+Route::get('client_sale_bills/{id}/edit', 'ClientController@getbills')->name("client.sale1");
 Route::get('importer_sale_bills', 'ImporterController@importer_sale_bills')->name("importer.sale");
 
 

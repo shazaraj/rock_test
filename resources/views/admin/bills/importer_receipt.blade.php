@@ -106,7 +106,7 @@
                     </div>
                     <div class="modal-footer">
                         <center>
-                            <input type="hidden" name="new_id" id="new_id"/>
+                            <input type="hidden" name="_id" id="_id"/>
                             <input type="hidden" name="operation" id="operation"/>
                             <input type="submit" name="action" id="action" class="btn btn-success" value="إضافة"/>
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
@@ -160,7 +160,7 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'importer_id', name: 'importer_id'},
+                    {data: 'name', name: 'name'},
                     {data: 'coast', name: 'coast'},
                     {data: 'paid', name: 'paid'},
                     {data: 'date', name: 'date'},

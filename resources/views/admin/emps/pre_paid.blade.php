@@ -46,7 +46,7 @@
                                     </select>
 
                                     <label>  مقدار السلفة   </label>
-                                    <input type="text" name="paid" id="paid" value="{{$item->month_salary}}">
+                                    <input type="text" name="paid" id="paid">
 
                                     <label> التاريخ    </label>
                                     <input type="date" name="salary_date" id="salary_date" >
@@ -68,7 +68,7 @@
                                         <th width="20%"> المبلغ  </th>
                                         <th width="30%">   بتاريخ  </th>
 
-                                        <th width="20%">العمليات</th>
+{{--                                        <th width="20%">العمليات</th>--}}
                                     </tr>
                                     </thead>
                                 </table>
@@ -106,12 +106,18 @@ var table = null;
                 }
 
             });
-            $("#emp_id").on('change', function() {
-            var emp_id = this.value;
-            var emp_sal_url = "{{ route('employee.get_pre_paid_view') }}"+'/'+emp_id;
-        // $("#emp_id").text();
-        // $("#emp_id").val();
-            // $('#tableData').clear();
+                $("#emp_id").on('change', function() {
+                    var emp_id = this.value;
+
+                    var emp_sal_url = "{{ route('employee.get_pre_paid_view') }}"+'/'+emp_id;
+
+                    $.get("{{ route('employees.index') }}" + '/' + emp_id + '/edit', function (data) {
+
+                        $('#paid').val(data.month_salary);
+
+
+
+                    })
               table = $('#tableData').DataTable({
             "bDestroy":true,
                 "language": {
@@ -144,7 +150,8 @@ var table = null;
                     {data: 'pre_paid', name: 'pre_paid'},
                     {data: 'paid_date', name: 'paid_date'},
 
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                    // {data: 'action', name: 'action',
+                    //     orderable: false, searchable: false},
 
                 ]
 
