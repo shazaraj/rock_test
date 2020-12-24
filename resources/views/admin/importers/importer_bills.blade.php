@@ -45,9 +45,9 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-{{--                                        <th width="10%"> اسم المورد </th>--}}
-                                        <th width="20%"> اسم المادة </th>
-                                        <th width="20%">  الكمية  </th>
+                                        <th width="10%"> اسم المورد </th>
+                                        <th width="15%"> اسم المادة </th>
+                                        <th width="15%">  الكمية  </th>
                                         <th width="20%"> سعر الشراء </th>
 {{--                                        <th width="15%">السعر الإجمالي</th>--}}
                                         <th width="20%">  التاريخ</th>
@@ -85,18 +85,18 @@
                     </div>
                     <div class="modal-body">
 
-{{--                        <label> تحديد مورد </label>--}}
-{{--                        <select name="importer_name" id="importer_name" class="form-control select2">--}}
-{{--                            @if(count($import_raw) >0 )--}}
-{{--                                @foreach ($import_raw as $type)--}}
-{{--                                    <option value="{{$type->id}}">{{$type->name}}</option>--}}
-{{--                                @endforeach--}}
-{{--                            @endif--}}
-{{--                        </select>--}}
+                        <label> تحديد مورد </label>
+                        <select name="client_id" id="client_id" class="form-control select2">
+                            @if(count($importers) >0 )
+                                @foreach ($importers as $name)
+                                    <option value="{{$name->id}}">{{$name->name}}</option>
+                                @endforeach
+                            @endif
+                        </select>
                         <label> اسم المادة </label>
                         <select name="material_id" id="material_id" class="form-control select2">
-                            @if(count($raw_material) >0 )
-                                @foreach ($raw_material as $raw)
+                            @if(count($raw_materials) >0 )
+                                @foreach ($raw_materials as $raw)
                                     <option value="{{$raw->id}}">{{$raw->name}}</option>
                                 @endforeach
                             @endif
@@ -179,6 +179,7 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
+                    {data: 'importer', name: 'importer'},
                     {data: 'name', name: 'name'},
                     {data: 'amount', name: 'amount'},
                     {data: 'price', name: 'price'},
@@ -218,7 +219,7 @@
 
                     $('#_id').val(data.id);
 
-                    // $('#importer_name').val(data.importer_name);
+                    $('#client_id').val(data.client_id);
                     $('#material_name').val(data.material_name);
                     $('#amount').val(data.amount);
                     // $('#item_price').val(data.item_price);

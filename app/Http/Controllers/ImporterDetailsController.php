@@ -31,7 +31,9 @@ class ImporterDetailsController extends Controller
                 ->addColumn('name'  ,function($row){
                     return RawMaterial::find($row->material_id)->name;
                 })
-
+                ->addColumn('importer'  ,function($row){
+                    return Client::find($row->client_id)->name;
+                })
                 ->addColumn('action', function($row){
 
 
@@ -47,15 +49,16 @@ class ImporterDetailsController extends Controller
                     return $btn;
 
                 })
-                ->rawColumns(['action', 'name'])
+                ->rawColumns(['action', 'name','importer'])
                 ->make(true);
 
             return;
         }
 //        $import_raw = Client::where('client_type','=',1)->get();
-        $raw_material = RawMaterial::all();
+        $raw_materials= RawMaterial::all();
+        $importers = Client::where('client_type','=',1)->get();
 
-        return view("admin.importers.importer_bills" , compact('raw_material'));
+        return view("admin.importers.importer_bills" , compact(["raw_materials","importers"]));
 
     }
 
@@ -80,7 +83,7 @@ class ImporterDetailsController extends Controller
         ImporterInvoicesDetails::updateOrCreate(['id' => $request->_id],
 
             [
-//                'importer_id' => $request->importer_id,
+                'client_id' => $request->client_id,
                 'material_id' => $request->material_id,
                 'amount' => $request->amount,
                 'price' => $request->price,
@@ -129,7 +132,7 @@ class ImporterDetailsController extends Controller
         ImporterInvoicesDetails::updateOrCreate(['id' => $id],
 
             [
-//                'importer_id' => $request->get("importer_id"),
+                'client_id' => $request->get("client_id"),
                 'material_id' => $request->get("material_id"),
                 'amount' => $request->get("amount"),
                 'price' => $request->get("price"),

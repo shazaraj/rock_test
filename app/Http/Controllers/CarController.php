@@ -44,10 +44,7 @@ class CarController extends Controller
                     return $btn;
 
                 })
-                ->addColumn('driver_salary',function($car){
-                    return Car::where('id','=',$car->car_id)->first()->driver_salary;
-                })
-                ->rawColumns(['action', 'type', 'refactoring','driver_salary'])
+                ->rawColumns(['action'])
 
                 ->make(true);
 

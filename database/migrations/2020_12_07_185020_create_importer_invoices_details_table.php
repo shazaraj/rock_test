@@ -16,6 +16,7 @@ class CreateImporterInvicesDetailsTable extends Migration
         Schema::create('importer_invoices_details', function (Blueprint $table) {
 
             $table->bigIncrements('id');
+            $table->integer('client_id');
             $table->integer('material_id');
             $table->integer('amount');
             $table->integer('price');

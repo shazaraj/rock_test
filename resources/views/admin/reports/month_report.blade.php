@@ -12,7 +12,7 @@
 
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-                    <li><a href="#">  الصندوق المالي     </a></li>
+                    <li><a href="#"> التقارير الشهرية    </a></li>
 
                 </ol>
             </h6>

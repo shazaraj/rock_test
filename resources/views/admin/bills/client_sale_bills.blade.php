@@ -87,6 +87,17 @@
                                 <tbody id="raws"></tbody>
                             </table>
                         </div>
+                        <div >
+                            <table>
+                               <thead>
+                               <tr>
+                                   <th> اسم المادة |  </th>
+                                   <th>  الكمية </th>
+                               </tr>
+                               </thead>
+                                <tbody id="raws1"></tbody>
+                            </table>
+                        </div>
                         <br/>
 {{-- end foreach loop --}}
                         <label> المبلغ المدفوع </label>
@@ -188,16 +199,28 @@
 
                     $('#name').val(data.client);
                     $("#raws").html("");
-                    if(data.raws){
+                    $("#raws1").html("");
+                    if(data.r_m){
                         var x = "";
-                        for(var i =0; i< data.raws.length;i++){
-                          //  alert(data.raws[i].name);
+                        for(var i =0; i< data.r_m.length;i++){
+                          //  alert(data.r_m[i].name);
                             x +="<tr > " +
-                                "<td> " + data.raws[i].name +" </td>" +
-                                "<td> " + data.raws[i].amount +" </td>" +
+                                "<td> " + data.r_m[i].name +" </td>" +
+                                "<td> " + data.r_m[i].amount +" </td>" +
                             "</tr>";
                         }
                         $("#raws").html( x);
+                    }
+                    if(data.f_m){
+                        var x = "";
+                        for(var i =0; i< data.f_m.length;i++){
+                          //  alert(data.f_m[i].name);
+                            x +="<tr > " +
+                                "<td> " + data.f_m[i].name +" </td>" +
+                                "<td> " + data.f_m[i].amount +" </td>" +
+                            "</tr>";
+                        }
+                        $("#raws1").html( x);
                     }
                     $('#paid').val(data.bill.paid);
                     $('#price').val(data.bill.all_price);

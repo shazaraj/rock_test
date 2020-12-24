@@ -42,7 +42,7 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="25%"> رقم السيارة</th>
+                                        <th width="25%"> السيارة</th>
                                         <th width="10%"> نوعها</th>
                                         <th width="10%"> الزبون  </th>
                                         <th width="10%">  الأجار    </th>

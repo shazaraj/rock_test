@@ -44,8 +44,11 @@ class CarMaintainanceController extends Controller
                     return $btn;
 
                 })
+                ->addColumn('name',function($row){
+                    return Car::find($row->car_id)->car_num;
+                })
 
-                ->rawColumns(['action', 'car'])
+                ->rawColumns(['action', 'car','name'])
 
                 ->make(true);
 

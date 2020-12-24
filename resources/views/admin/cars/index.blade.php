@@ -45,7 +45,7 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="25%"> رقم السيارة</th>
+                                        <th width="25%"> السيارة</th>
                                         <th width="20%"> نوعها</th>
                                         <th width="15%"> الراتب  </th>
                                         <th width="15%">  اسم السائق  </th>

@@ -126,62 +126,62 @@
 
         <li class="treeview">
                     <a href="{{url('/clients')}}">
-                        <i class="fa fa-male"></i> <span> الزبائن    </span>
+                        <i class="fa fa-user-circle"></i> <span> الزبائن    </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
 
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/clients')}}"><i class="fa fa-empire"></i>  بطاقة زبون</a></li>
+                        <li><a href="{{url('/clients')}}"><i class="fa fa-user-circle"></i>  بطاقة زبون</a></li>
 {{--                        <li><a href="notifications.php"><i class="fa fa-eye"></i>  كشف حساب مورد</a></li>--}}
-                        <li><a href="{{url('client/sale/new')}}"><i class="fa fa-eye"></i>     مبيعات الزبون  </a></li>
+                        <li><a href="{{url('client/sale/new')}}"><i class="fa fa-empire"></i>     مبيعات الزبون  </a></li>
                     </ul>
 
                 </li>
 
           <li class="treeview">
               <a href="#">
-                  <i class="fa fa-male"></i> <span> الموردين   </span>
+                  <i class="fa fa-user-o"></i> <span> الموردين   </span>
                   <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                        </span>
               </a>
 
               <ul class="treeview-menu" >
-                  <li><a href="{{url('/importer')}}"><i class="fa fa-empire"></i> بطاقة مورد  </a></li>
+                  <li><a href="{{url('/importer')}}"><i class="fa fa-user-o"></i> بطاقة مورد  </a></li>
                   <li><a href="{{url('/materials')}}"><i class="fa fa-empire"></i> بطاقة مادة موردة   </a></li>
-                  <li><a href="{{url('/importer_sale')}}"><i class="fa fa-eye"></i>     مبيعات المورد  </a></li>
+{{--                  <li><a href="{{url('/importer_sale')}}"><i class="fa fa-eye"></i>     مبيعات المورد  </a></li>--}}
               </ul>
 
 
           </li>
                 <li class="treeview">
                     <a href="{{url('/employees')}}">
-                        <i class="fa fa-male"></i> <span> الموظفين   </span>
+                        <i class="fa fa-user"></i> <span> الموظفين   </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
                   </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('employee/index')}}"><i class="fa fa-empire"></i> بطاقة موظف   </a></li>
-                        <li><a href="{{url('employee/paid_salary')}}"><i class="fa fa-circle-o"></i>  دفع راتب    </a></li>
-                        <li><a href="{{url('employee/pre_paid')}}"><i class="fa fa-eye"></i>   سلفة      </a></li>
+                        <li><a href="{{url('employee/index')}}"><i class="fa fa-user"></i> بطاقة موظف   </a></li>
+                        <li><a href="{{url('employee/paid_salary')}}"><i class="fa fa-paypal"></i>  دفع راتب    </a></li>
+                        <li><a href="{{url('employee/pre_paid')}}"><i class="fa fa-low-vision"></i>   سلفة      </a></li>
 
                     </ul>
                 </li>
 
         <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-server"></i> <span>  المستودع    </span>
+                        <i class="fa fa-building"></i> <span>  المستودع    </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
 
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('store/raw_materials')}}"><i class="fa fa-circle-o"></i>  المواد الأولية  </a></li>
-                        <li><a href="{{url('store/factoried_materials')}}"><i class="fa fa-eye"></i>   المواد المصنعة    </a></li>
+                        <li><a href="{{url('store/raw_materials')}}"><i class="fa fa-slack"></i>  المواد الأولية  </a></li>
+                        <li><a href="{{url('store/factoried_materials')}}"><i class="fa fa-puzzle-piece"></i>   المواد المصنعة    </a></li>
 
                     </ul>
 
@@ -189,16 +189,25 @@
 
                 <li class="">
                     <a href="{{url('/raw_materials')}}">
-                        <i class="fa fa-server"></i> <span> المواد الأولية   </span>
+                        <i class="fa fa-slack"></i> <span> المواد الأولية   </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
 
                 </li>
+              <li class="">
+                  <a href="{{url('/factoried_materials')}}">
+                      <i class="fa fa-puzzle-piece"></i> <span>     بطاقة مادة مصنعة          </span>
+                      <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                  </a>
+
+              </li>
                 <li class="treeview">
                     <a href="{{url('/cars')}}">
-                        <i class="fa fa-car"></i> <span> بطاقة سيارة     </span>
+                        <i class="fa fa-truck"></i> <span> بطاقة سيارة     </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
 
@@ -206,23 +215,23 @@
 
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/cars')}}"><i class="fa fa-circle-o"></i>  بطاقة  سيارة</a></li>
+                        <li><a href="{{url('/cars')}}"><i class="fa fa-bus"></i>  بطاقة  سيارة</a></li>
                         <li><a href="{{route('car.paid.add')}}">
-                                <i class="fa fa-eye"></i>  كشف حساب  سائق</a></li>
+                                <i class="fa fa-address-card"></i>  كشف حساب  سائق</a></li>
                         <li><a href="{{url('/cars_maintainances')}}">
-                                <i class="fa fa-eye"></i>   مصاريف صيانة    </a></li>
+                                <i class="fa fa-steam"></i>   مصاريف صيانة    </a></li>
                         <li><a href="{{url('/car/history')}}">
-                                <i class="fa fa-eye"></i>   سجل الأجور للسيارة      </a></li>
+                                <i class="fa fa-file-archive-o"></i>   سجل الأجور للسيارة      </a></li>
                     </ul>
 
                 </li>
-                <li class="">
-                    <a href="{{url('/cars_maintainances')}}">
-                        <i class="fa fa-car"></i> <span> بطاقة مصاريف سيارة     </span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
+{{--                <li class="">--}}
+{{--                    <a href="{{url('/cars_maintainances')}}">--}}
+{{--                        <i class="fa fa-car"></i> <span> بطاقة مصاريف سيارة     </span>--}}
+{{--                        <span class="pull-right-container">--}}
+{{--              <i class="fa fa-angle-left pull-right"></i>--}}
+{{--            </span>--}}
+{{--                    </a>--}}
 
 
           <li class="treeview">
@@ -233,25 +242,17 @@
             </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="{{url('client_sale_bills')}}"><i class="fa fa-circle-o"></i> فواتير الزبون   </a></li>
-                  <li><a href="{{url('importer_sale_bills')}}"><i class="fa fa-circle-o"></i>  فواتير المورد    </a></li>
+                  <li><a href="{{url('client_sale_bills')}}"><i class="fa fa-user-circle"></i> فواتير الزبون   </a></li>
+                  <li><a href="{{url('importer_sale_bills')}}"><i class="fa fa-user-o"></i>  فواتير المورد    </a></li>
                   <li><a href="{{url('other_payments')}}"><i class="fa fa-eye"></i>     فواتير أخرى       </a></li>
 
               </ul>
           </li>
 
-                <li class="">
-                    <a href="{{url('/factoried_materials')}}">
-                        <i class="fa fa-map-signs"></i> <span>     بطاقة مادة مصنعة          </span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
 
-                </li>
                 <li class="">
                     <a href="{{url('/production_cards')}}">
-                        <i class="fa fa-map-signs"></i> <span>     بطاقة إنتاج            </span>
+                        <i class="fa fa-get-pocket"></i> <span>     بطاقة إنتاج            </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -260,7 +261,7 @@
                 </li>
                 <li class="">
                     <a href="{{url('/purchases')}}">
-                        <i class="fa fa-map-signs"></i> <span>     بطاقة مشتريات            </span>
+                        <i class="fa fa-shopping-bag"></i> <span>     بطاقة مشتريات            </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -269,7 +270,7 @@
                 </li>
                 <li class="">
                     <a href="{{url('/sales')}}">
-                        <i class="fa fa-map-signs"></i> <span>     بطاقة مبيعات            </span>
+                        <i class="fa fa-table"></i> <span>     بطاقة مبيعات            </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -279,7 +280,7 @@
 
                 <li class="">
                     <a href="{{url('/peices_type')}}">
-                        <i class="fa fa-map-signs"></i> <span>  بطاقة نوع القطعة        </span>
+                        <i class="fa fa-chain"></i> <span>  بطاقة نوع القطعة        </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -288,7 +289,7 @@
                 </li>
           <li class="">
                     <a href="{{url('/money_box')}}">
-                        <i class="fa fa-map-signs"></i> <span>  الصندوق المالي        </span>
+                        <i class="fa fa-dropbox"></i> <span>  الصندوق المالي        </span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -313,15 +314,15 @@
           </li>
           <li class="treeview">
               <a href="#">
-                  <i class="fa fa-paste"></i> <span>  التقارير    </span>
+                  <i class="fa fa-line-chart"></i> <span>  التقارير    </span>
                   <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
 
             </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="{{url('/today/report')}}"><i class="fa fa-empire"></i>  تقرير اليوم  </a></li>
-                  <li><a href="{{url('/today/report')}}"> <i class="fa fa-empire"></i>    تقرير هذا الشهر    </a></li>
+                  <li><a href="{{url('/today/report')}}"><i class="fa fa-paste"></i>  تقرير اليوم  </a></li>
+                  <li><a href="{{url('/today/report')}}"> <i class="fa fa-paste"></i>    تقرير هذا الشهر    </a></li>
 
               </ul>
 

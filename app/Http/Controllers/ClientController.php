@@ -284,10 +284,10 @@ class ClientController extends Controller
         if(!empty($bill->raw_materials) && count($bill->raw_materials) > 0)
 
             foreach ($bill->raw_materials as $item){
-                $raw =   ClientBillRawMaterial::find($item->raw_id);
+                $raw =   RawMaterial::find($item->raw_id);
                 $item2 = [
-                    "name"=>$raw->raw_id,
-                    "amount"=>$raw->amount,
+                    "name"=>$raw->name,
+                    "amount"=>$item->amount,
                 ];
                 $row_m[] = $item2;
             }
@@ -295,14 +295,15 @@ class ClientController extends Controller
             $fac_n = [];
             if(!empty($bill->factoried_materials) && count($bill->factoried_materials) > 0)
             foreach ($bill->factoried_materials as $item){
-                $raw = ClientBillFactoriedMaterial::find($item->raw_id);
+                $raw1 = FactoriedMaterial::find($item->raw_id);
+                $raw = TypeOfPeice::find($raw1->type_of_peice_id);
                 $item2 = [
-                    "name"=>$raw->raw_id,
-                    "amount"=>$raw->amount,
+                    "name"=>$raw->name,
+                    "amount"=>$item->amount,
                 ];
                 $fac_n[] = $item2;
             }
-return  response()->json(["bill"=>$bill , "raws"=>$row_m, "f_m"=>$fac_n,"client"=>$client]);
+return  response()->json(["bill"=>$bill , "r_m"=>$row_m, "f_m"=>$fac_n,"client"=>$client]);
 //        return view('admin.bills.client_sale_bills',compact(["name","date","raw","amount_raw","factor","amount_factor"]));
 
     }
@@ -324,7 +325,7 @@ return  response()->json(["bill"=>$bill , "raws"=>$row_m, "f_m"=>$fac_n,"client"
 
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
+//                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
 
 
                     return $btn;

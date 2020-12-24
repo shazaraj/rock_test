@@ -157,7 +157,7 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'car_id', name: 'car_id'},
+                    {data: 'name', name: 'name'},
                     {data: 'money', name: 'money'},
                     {data: 'details', name: 'details'},
 
