@@ -90,48 +90,52 @@
 
             });
 
-
-            var table = $('#tableData').DataTable({
-                "language": {
-                    "processing": " جاري المعالجة",
-                    "paginate": {
-                        "first": "الأولى",
-                        "last": "الأخيرة",
-                        "next": "التالية",
-                        "previous": "السابقة"
-                    },
-                    "search": "البحث :",
-                    "loadingRecords": "جاري التحميل...",
-                    "emptyTable": " لا توجد بيانات",
-                    "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",
-                    "infoEmpty": "Showing 0 إلى 0 من 0 entries",
-                    "lengthMenu": "إظهار _MENU_ البيانات",
-                },
-                processing: true,
-
-                serverSide: true,
-
-                ajax: "{{ route('reports.month_report') }}",
-
-                columns: [
-
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-
-                    {data: 'id', name: 'id'},
-                    {data: 'raw_material', name: 'raw_material'},
-                    {data: 'from_account', name: 'from_account'},
-                    {data: 'to_account', name: 'to_account'},
-                    {data: 'extra', name: 'extra'},
-                    {data: 'all_price', name: 'all_price'},
-                    {data: 'created_at', name: 'created_at'},
-
-
-
-                ]
-
+            $('.input-daterange').datepicker({
+                todayBtn:'linked',
+                format:'yyyy-mm-dd',
+                autoclose:true
             });
 
+            load_data();
 
+            function load_data(from_date = '', to_date = '')
+            {
+                var table = $('#tableData').DataTable({
+                    "language": {
+                        "processing": " جاري المعالجة",
+                        "paginate": {
+                            "first": "الأولى",
+                            "last": "الأخيرة",
+                            "next": "التالية",
+                            "previous": "السابقة"
+                        },
+                        "search": "البحث :",
+                        "loadingRecords": "جاري التحميل...",
+                        "emptyTable": " لا توجد بيانات",
+                        "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",
+                        "infoEmpty": "Showing 0 إلى 0 من 0 entries",
+                        "lengthMenu": "إظهار _MENU_ البيانات",
+                    },
+                    processing: true,
+
+                    serverSide: true,
+
+                    ajax: "{{ route('reports.month_report') }}",
+
+                    columns: [
+
+                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+
+                        {data: 'name', name: 'name'},
+                        {data: 'amount', name: 'amount'},
+                        {data: 'all_price', name: 'all_price'},
+
+
+
+                    ]
+
+                });
+            }
 
 
 

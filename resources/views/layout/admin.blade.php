@@ -321,8 +321,9 @@
             </span>
               </a>
               <ul class="treeview-menu">
-                  <li><a href="{{url('/today/report')}}"><i class="fa fa-paste"></i>  تقرير اليوم  </a></li>
-                  <li><a href="{{url('/today/report')}}"> <i class="fa fa-paste"></i>    تقرير هذا الشهر    </a></li>
+{{--                  <li><a href="{{url('/today/report')}}"><i class="fa fa-paste"></i>  تقرير اليوم  </a></li>--}}
+                  <li><a href="{{url('/report')}}"><i class="fa fa-paste"></i>  التقارير  </a></li>
+{{--                  <li><a href="{{url('/today/report')}}"> <i class="fa fa-paste"></i>    تقرير هذا الشهر    </a></li>--}}
 
               </ul>
 

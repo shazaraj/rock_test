@@ -53,10 +53,7 @@
                                     <label> التاريخ    </label>
                                     <input type="date" name="salary_date" id="salary_date" >
 
-                                    <button type="button" id="post_btn"
-                                            class="btn btn-info btn-lg">
-                                        إضافة
-                                    </button>
+                                    <button type="button" id="post_btn" class="btn btn-info btn-lg">إضافة</button>
                                     </form>
                                 </div>
                                 <br/><br/>
@@ -99,13 +96,13 @@
 @endsection
 @push('pageJs')
     <script type="text/javascript">
-var table = null;
+    var table = null;
         $(function () {
 
                 $("#emp_id").on('change', function() {
     var emp_id = this.value;
 
-var emp_sal_url = "{{ route('employee.get_salaries_view') }}"+'/'+emp_id;
+    var emp_sal_url = "{{ route('employee.get_salaries_view') }}"+'/'+emp_id;
 
                     $.get("{{ route('employees.index') }}" + '/' + emp_id + '/edit', function (data) {
 
@@ -164,45 +161,6 @@ var emp_sal_url = "{{ route('employee.get_salaries_view') }}"+'/'+emp_id;
                 }
 
             });
-
-
-            {{--table = $('#tableData').DataTable({--}}
-            {{--    "bDestroy":true,--}}
-            {{--    "language": {--}}
-            {{--        "processing": " جاري المعالجة",--}}
-            {{--        "paginate": {--}}
-            {{--            "first": "الأولى",--}}
-            {{--            "last": "الأخيرة",--}}
-            {{--            "next": "التالية",--}}
-            {{--            "previous": "السابقة"--}}
-            {{--        },--}}
-            {{--        "search": "البحث :",--}}
-            {{--        "loadingRecords": "جاري التحميل...",--}}
-            {{--        "emptyTable": " لا توجد بيانات",--}}
-            {{--        "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",--}}
-            {{--        "infoEmpty": "Showing 0 إلى 0 من 0 entries",--}}
-            {{--        "lengthMenu": "إظهار _MENU_ البيانات",--}}
-            {{--    },--}}
-            {{--    processing: true,--}}
-
-            {{--    serverSide: true,--}}
-
-            {{--    ajax: "{{ route('employee.get_salaries_view') }}"+'/'+$("#emp_id").val(),--}}
-
-            {{--    columns: [--}}
-
-            {{--        {data: 'DT_RowIndex', name: 'DT_RowIndex'},--}}
-
-
-            {{--        {data: 'name', name: 'name'},--}}
-            {{--        {data: 'salary', name: 'salary'},--}}
-            {{--        {data: 'salary_date', name: 'salary_date'},--}}
-
-            {{--        {data: 'action', name: 'action', orderable: false, searchable: false},--}}
-
-            {{--    ]--}}
-
-            {{--});--}}
 
 
             $('#createNewProduct').click(function () {

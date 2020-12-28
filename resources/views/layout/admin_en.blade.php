@@ -266,8 +266,8 @@
         <div class="pull-right hidden-xs">
 
         </div>
-        <strong>Copyright &copy; 2019 <a href="#">  Rock</a>.</strong> All rights
-        reserved.
+        <strong>Copyright &copy; 2020 <a href="#">Rock</a>.</strong> All rights
+        reserved
     </footer>
 </div>
 

@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Car;
 use App\CarRent;
 use App\Client;
+use App\ClientBill;
+use App\ClientBillFactoriedMaterial;
+use App\ClientBillRawMaterial;
+use App\FactoriedMaterial;
 use App\Purchase;
 use App\RawMaterial;
+use App\TypeOfPeice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
@@ -14,6 +19,9 @@ use DataTables;
 class TodayReportController extends Controller
 {
     //
+    public function getRepo(){
+        return view("admin.reports.report");
+    }
     public function index(Request $request){
         if ($request->ajax()) {
 
@@ -41,5 +49,32 @@ class TodayReportController extends Controller
 
 
         return view("admin.reports.today_report");
+    }
+    public function getSale(Request $request ,$day_repo){
+
+        if ($request->ajax()){
+
+            $data = ClientBillRawMaterial ::whereDate('created_at', '=',$day_repo)->get();
+            return Datatables::of($data)
+
+                ->addIndexColumn()
+                ->addColumn('raw_material',function($raw){
+                    return RawMaterial::where('id','=',$raw->raw_id)->first()->name;
+                })
+                ->addColumn('action', function($row){
+
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
+
+                    return $btn;
+
+                })
+                ->rawColumns(['raw_material','action'])
+
+                ->make(true);
+
+            return;
+            }
+
+  return view("admin.reports.today_report");
     }
 }

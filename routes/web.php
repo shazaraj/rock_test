@@ -33,6 +33,10 @@ Route::resource('/importer/bills','ImporterController@bills');
 Route::resource('/employees','EmpController');
 Route::resource('/receipt','ReceiptController');
 
+
+
+Route::post('printInvoice', 'BillsController@printInvoice') ->name('print.invoice');
+
 /// get started to be continued////
 ///
 //Route::resource('/client_bills','ClientsBillsController');
@@ -49,6 +53,10 @@ Route::get('bills/{id}','ClientController@getbills');
 Route::get('client_sale_bills', 'ClientController@client_sale_bills')->name("client.sale");
 Route::get('client_sale_bills/{id}/edit', 'ClientController@getbills')->name("client.sale1");
 Route::get('importer_sale_bills', 'ImporterController@importer_sale_bills')->name("importer.sale");
+
+///report sale
+
+Route::get('/report', 'TodayReportController@getRepo');
 
 
 // importer bills ticket
@@ -92,4 +100,5 @@ Route::get('store/factoried_materials', 'StoreController@factoried_materials')->
 Route::get('car/history', 'CarController@show_car_history')->name('car.history.index');
 Route::get('money_box', 'MoneyBoxController@index')->name('money.box.index');
 Route::get('/today/report', 'TodayReportController@index')->name('reports.today_report');
+Route::get('/getSale/{day_repo}', 'TodayReportController@getSale')->name('getSale.today');
 Route::get('/month/report', 'MonthReportController@index')->name('reports.month_report');

@@ -118,13 +118,18 @@
                         <center>
                             <input type="hidden" name="_id" id="_id"/>
                             <input type="hidden" name="operation" id="operation"/>
-                            <input type="submit" name="action" id="action" class="btn btn-success" value="طباعة"/>
+{{--                            @foreach($invoices as $invoice)--}}
+                            <button type="button"   class="btn btn-success printCart" data-id="_id"> طباعة <i class="fa fa-print"></i> </button>
+{{--                            @endforeach--}}
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
                         </center>
                     </div>
                 </div>
             </form>
         </div>
+    </div>
+    <div id="print_form_1_print" style="display: none !important;">
+
     </div>
 
 
@@ -233,91 +238,43 @@
             });
 
 
-            $('#action').click(function (e) {
-
+            // $('#action').click(function (e) {
+            //
+            //     e.preventDefault();
+            //
+            //     window.print();
+            //
+            //
+            // });
+            $(".printCart").click(function (e) {
                 e.preventDefault();
+                var item = $(this);
 
-                $(this).html('Sending..');
 
+                var item_id = $(this).data("id");
 
+                alert("قيد الطباعة");
                 $.ajax({
-
-                    data: $('#productForm').serialize(),
-
-                    url: "{{ route('clients.store') }}",
-
-                    type: "POST",
-
-                    dataType: 'json',
-
-                    success: function (data) {
-                        $('#action').html('إضافة');
-
-
-                        $('#productForm').trigger("reset");
-                        $('#advertModal').modal("hide");
-
-                        toastr.success('تم الحفظ بنجاح');
-                        table.draw();
-
+                    url:"{{route('print.invoice')}}",
+                    method:"POST",
+                    data:{
+                        '_token':$('input[name=_token]').val()
+                    },
+                    // dataType:"json",
+                    success:function(data)
+                    {
+                        $("#print_form_1_print").html(data);
+                        printReport(data);
 
                     },
-
-                    error: function (data) {
-
-                        console.log('Error:', data);
-
-                        $('#action').html('إضافة');
-
+                    error:function(data){
+                        alert(data.responseText);
                     }
+                })
 
-                });
+
 
             });
-            $('#editBtn').click(function (e) {
-
-                e.preventDefault();
-
-                $(this).html('saving..');
-
-
-                $.ajax({
-
-                    data: $('#productEditForm').serialize(),
-
-                    url: "{{ route('clients.store') }}",
-
-                    type: "POST",
-
-                    dataType: 'json',
-
-                    success: function (data) {
-                        $('#action').html('   حفظ التعديلات &nbsp; <i class="fa fa-save"></i> ');
-
-
-                        $('#productEditForm').trigger("reset");
-                        $('#ajaxModel').modal('hide');
-
-                        table.draw();
-
-                        toastr.success("تم التعديل بنجاح");
-
-                    },
-
-                    error: function (data) {
-
-                        console.log('Error:', data);
-                        $('#ajaxModel').modal('hide');
-
-                        $('#editBtn').html('Save changes &nbsp; <i class="fa fa-save"></i> ');
-
-                    }
-
-                });
-
-            });
-
-
             $('body').on('click', '.deleteProduct', function () {
 
 

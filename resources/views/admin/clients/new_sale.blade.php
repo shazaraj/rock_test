@@ -97,14 +97,14 @@
                         </div>
                         <div class="col-md-3 pull-right">
                             <label for="">الكمية</label>
-                            <input type="number" class="form-control" name="count" id="count" value="1">
+                            <input type="number" class="form-control" name="count" id="count" >
 
                         </div>
 
                         <div class="col-md-3 pull-right">
                             <div class="form-group">
                                 <label for="">السعر</label>
-                                <input type="text" class="form-control" name="price" value="0" id="price">
+                                <input type="text" class="form-control" name="price"  id="price">
                             </div>
                         </div>
                         <div class="col-md-3" style="padding:15px;">
@@ -139,14 +139,14 @@
                         </div>
                         <div class="col-md-3 pull-right">
                             <label for="">الكمية</label>
-                            <input type="number" class="form-control" name="f_count" id="f_count" value="1">
+                            <input type="number" class="form-control" name="f_count" id="f_count" >
 
                         </div>
 
                         <div class="col-md-3 pull-right">
                             <div class="form-group">
                                 <label for="">السعر</label>
-                                <input type="text" class="form-control" name="f_price" value="0" id="f_price">
+                                <input type="text" class="form-control" name="f_price" id="f_price">
                             </div>
                         </div>
                         <div class="col-md-3" style="padding:15px;">
@@ -179,12 +179,12 @@
                         </div>
                         <div class="col-md-3 pull-right">
                             <label for=""> الكلفة</label>
-                            <input type="number" class="form-control"  name="deliver_coast" id="deliver_coast" value="0">
+                            <input type="number" class="form-control"  name="deliver_coast" id="deliver_coast" >
 
                         </div>
                         <div class="col-md-3 pull-right">
                             <label for=""> المدفوع</label>
-                            <input type="number" class="form-control"  name="deliver_paid" id="deliver_paid" value="0">
+                            <input type="number" class="form-control"  name="deliver_paid" id="deliver_paid" >
 
                         </div>
 
