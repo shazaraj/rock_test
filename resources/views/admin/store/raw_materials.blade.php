@@ -12,7 +12,7 @@
 
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-                    <li><a href="#">محتويات المستودع من الموادالاولية </a></li>
+                    <li><a href="#"> محتويات المستودع من المواد الاولية </a></li>
 
                 </ol>
             </h6>
@@ -41,11 +41,11 @@
                                     <thead>
                                     <tr>
 
-                                        <th width="5%"> #</th>
-                                        <th width="20%"> اسم المادة </th>
-                                        <th width="10%">  نوع الكمية  </th>
-                                        <th width="10%"> الكمية</th>
-                                        <th width="10%"> السعر الإفرادي</th>
+                                        <th width="15%"> #</th>
+                                        <th width="25%"> اسم المادة </th>
+                                        <th width="20%">  نوع الكمية  </th>
+                                        <th width="20%"> الكمية</th>
+                                        <th width="20%"> السعر الإفرادي</th>
 
                                     </tr>
                                     </thead>

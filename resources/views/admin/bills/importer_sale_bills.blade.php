@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -24,7 +23,6 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-
 
                 </div>
                 <div class="box-body">
@@ -49,7 +47,6 @@
                         </div>
                     </div>
 
-
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
@@ -70,38 +67,35 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title"> تفاصيل الفاتورة || <b> rock </b></h4>
                     </div>
-                    <input type="hidden" id="product_id">
-{{--                    ["clients","bills","factory","raws"])--}}
-                    @foreach($clients as $client)
-                        <div class="modal-body">
-                        <label> اسم العميل </label> {{$client->name}}
-                        @endforeach
+                    <div class="modal-body">
+                        <label> اسم المورد </label>
+                        <input type="text" id="name" disabled>
                         <br/>
-                        @foreach($factory as $fact)
-                            <label> اسم المادة المصنعة </label>{{$fact->raw_id}} <b> || </b>  <label> الكمية </label> {{$fact->amount}}
-                            <br/>
-                        @endforeach
-                        @foreach($raws as $raw)
-                            <label> اسم المادة الأولية </label>{{$raw->raw_id}} <b> || </b>  <label> الكمية </label> {{$raw->amount}}
-                            <br/>
-                        @endforeach
-                        @foreach($bills as $bill)
-                        <label> المبلغ المدفوع </label>  {{$bill->paid}}
+                        <label> اسم المادة </label>
+                        <input type="text" id="material" disabled>
                         <br/>
-                        <label>  المبلغ الإجمالي </label> {{$bill->all_price}}
+                        <label> الكمية </label>
+                        <input type="text" id="amount" disabled>
                         <br/>
-                        <label> المبلغ المتبقي </label> {{$bill->remain}}
+                        <label> المبلغ المدفوع </label>
+                        <input type="text" id="paid" disabled>
                         <br/>
-                        <label> تاريخ الفاتورة </label> {{$bill->created_at}}
+                        <label>  المبلغ الإجمالي </label>
+                        <input type="text" id="price" disabled>
                         <br/>
-                        @endforeach
+                        <label> المبلغ المتبقي </label>
+                        <input type="text" id="remain" disabled>
+                        <br/>
+                        <label> تاريخ الفاتورة </label>
+                        <input type="text" id="date" disabled>
+                        <br/>
 
                     </div>
                     <div class="modal-footer">
                         <center>
                             <input type="hidden" name="_id" id="_id"/>
                             <input type="hidden" name="operation" id="operation"/>
-                            <input type="submit" name="action" id="action" class="btn btn-success" value="طباعة"/>
+                            <button type="button"   class="btn btn-success printCart" data-id="_id"> طباعة <i class="fa fa-print"></i> </button>
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
                         </center>
                     </div>
@@ -109,7 +103,9 @@
             </form>
         </div>
     </div>
+    <div id="print_form_1_print" style="display: none !important;">
 
+    </div>
 
 @endsection
 @push('pageJs')
@@ -117,7 +113,6 @@
     <script type="text/javascript">
 
         $(function () {
-
 
             $.ajaxSetup({
 
@@ -128,7 +123,6 @@
                 }
 
             });
-
 
             var table = $('#tableData').DataTable({
                 "language": {
@@ -156,8 +150,8 @@
 
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
 
-                    {data: 'name', name: 'name'},
-                    {data: 'remain', name: 'remain'},
+                    {data: 'importer', name: 'name'},
+                    {data: 'price', name: 'price'},
 
                     {data: 'action', name: 'action', orderable: false, searchable: false},
 
@@ -165,152 +159,96 @@
 
             });
 
-
             $('body').on('click', '.editProduct', function () {
 
                 var product_id = $(this).data('id');
+                // alert(product_id);
 
-                $.get("{{ route('importer.sale') }}" + '/' + product_id + '/view', function (data) {
+                $.get("{{ route('importer.sale') }}" + '/' + product_id + '/details', function (data) {
 
-                    $('#modelheading').html("تفاصيل الفاتورة");
+                    $('#modelheading').html("عرض تفاصيل الفاتورة");
 
                     $("#action").html("طباعة");
                     $("#action").val("طباعة");
                     $('#advertModal').modal('show');
-                    //
-                    // $('#_id').val(data.id);
-                    //
-                    // $('#name').val(data.name);
-                    // $('#client_type_id').val(data.client_type);
-                    // $('#phone').val(data.phone);
-                    // $('#mobile').val(data.mobile);
-                    // $('#account_id').val(data.main_account_id);
 
+                    $('#_id').val(data.id);
+                    $('#name').val(data.importer);
+                    $('#material').val(data.material);
+                    $('#amount').val(data.amount);
+                    $('#paid').val(data.paid);
+                    $('#price').val(data.price);
+                    $('#remain').val(data.remain);
+                    $('#date').val(data.date);
 
                 })
 
             });
 
-
-            $('#action').click(function (e) {
-
+            // $('#action').click(function (e) {
+            //
+            //     e.preventDefault();
+            //
+            //     window.print();
+            //
+            //
+            // });
+            $(".printCart").click(function (e) {
                 e.preventDefault();
+                var item = $(this);
 
-                $(this).html('Sending..');
+                var item_id = $(this).data("id");
 
-
+                alert("قيد الطباعة");
                 $.ajax({
-
-                    data: $('#productForm').serialize(),
-
-                    url: "{{ route('clients.store') }}",
-
-                    type: "POST",
-
-                    dataType: 'json',
-
-                    success: function (data) {
-                        $('#action').html('طباعة');
-
-
-                        $('#productForm').trigger("reset");
-                        $('#advertModal').modal("hide");
-
-                        toastr.success('تم الحفظ بنجاح');
-                        table.draw();
-
+                    url:"{{route('print.invoice')}}",
+                    method:"POST",
+                    data:{
+                        '_token':$('input[name=_token]').val()
+                    },
+                    // dataType:"json",
+                    success:function(data)
+                    {
+                        $("#print_form_1_print").html(data);
+                        printReport(data);
 
                     },
-
-                    error: function (data) {
-
-                        console.log('Error:', data);
-
-                        $('#action').html('طباعة');
-
+                    error:function(data){
+                        alert(data.responseText);
                     }
-
-                });
+                })
 
             });
-            $('#editBtn').click(function (e) {
+            {{--$('body').on('click', '.deleteProduct', function () {--}}
 
-                e.preventDefault();
+            {{--    var product_id = $(this).data("id");--}}
 
-                $(this).html('saving..');
+            {{--    var co = confirm("  هل أنت متأكد من الحذف  !");--}}
+            {{--    if (!co) {--}}
+            {{--        return;--}}
+            {{--    }--}}
 
+            {{--    $.ajax({--}}
 
-                $.ajax({
+            {{--        type: "DELETE",--}}
 
-                    data: $('#productEditForm').serialize(),
+            {{--        url: "{{ route('importer.sale') }}" + '/' + product_id,--}}
 
-                    url: "{{ route('importer.sale') }}",
+            {{--        success: function (data) {--}}
 
-                    type: "POST",
+            {{--            table.draw();--}}
 
-                    dataType: 'json',
+            {{--        },--}}
 
-                    success: function (data) {
-                        $('#action').html('   حفظ التعديلات &nbsp; <i class="fa fa-save"></i> ');
+            {{--        error: function (data) {--}}
 
+            {{--            console.log('خطأ:', data);--}}
 
-                        $('#productEditForm').trigger("reset");
-                        $('#ajaxModel').modal('hide');
+            {{--        }--}}
 
-                        table.draw();
+            {{--    });--}}
 
-                        toastr.success("تم التعديل بنجاح");
-
-                    },
-
-                    error: function (data) {
-
-                        console.log('Error:', data);
-                        $('#ajaxModel').modal('hide');
-
-                        $('#editBtn').html('Save changes &nbsp; <i class="fa fa-save"></i> ');
-
-                    }
-
-                });
-
-            });
-
-
-
-            $('body').on('click', '.deleteProduct', function () {
-
-
-                var product_id = $(this).data("id");
-
-                var co = confirm("  هل أنت متأكد من الحذف  !");
-                if (!co) {
-                    return;
-                }
-
-
-                $.ajax({
-
-                    type: "DELETE",
-
-                    url: "{{ route('client.sale') }}" + '/' + product_id,
-
-                    success: function (data) {
-
-                        table.draw();
-
-                    },
-
-                    error: function (data) {
-
-                        console.log('خطأ:', data);
-
-                    }
-
-                });
-
-            });
-
+            {{--});--}}
 
         });
 

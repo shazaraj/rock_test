@@ -53,6 +53,8 @@ Route::get('bills/{id}','ClientController@getbills');
 Route::get('client_sale_bills', 'ClientController@client_sale_bills')->name("client.sale");
 Route::get('client_sale_bills/{id}/edit', 'ClientController@getbills')->name("client.sale1");
 Route::get('importer_sale_bills', 'ImporterController@importer_sale_bills')->name("importer.sale");
+//Route::get('importer_sale_bills/{id}/edit', 'ImporterController@importer_sale_bills')->name("importer.sale1");
+Route::get('importer_sale_bills/{id}/details', 'ImporterController@importer_sale_bills_details')->name("importer.sale1");
 
 ///report sale
 
@@ -99,6 +101,8 @@ Route::get('store/factoried_materials', 'StoreController@factoried_materials')->
 
 Route::get('car/history', 'CarController@show_car_history')->name('car.history.index');
 Route::get('money_box', 'MoneyBoxController@index')->name('money.box.index');
-Route::get('/today/report', 'TodayReportController@index')->name('reports.today_report');
-Route::get('/getSale/{day_repo}', 'TodayReportController@getSale')->name('getSale.today');
+//Route::get('money_box', 'MoneyBoxController@getMoney')->name('money.box.index');
+//Route::get('/today/report', 'TodayReportController@getSale')->name('reports.today_report');
+Route::get('/getSale/{day_repo}', 'TodayReportController@getSale')->name('reports.today_report');
+Route::get('/getSale', 'TodayReportController@sale_report')->name('sales.report');
 Route::get('/month/report', 'MonthReportController@index')->name('reports.month_report');

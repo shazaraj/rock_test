@@ -42,12 +42,11 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="25%"> رقم السيارة</th>
-                                        <th width="10%"> نوعها</th>
-                                        <th width="10%"> الزبون  </th>
-                                        <th width="10%">  الأجار    </th>
-                                        <th width="10%">  المدفوع    </th>
-                                        <th width="10%">  التاريخ    </th>
+                                        <th width="20"> سجل أجور السيارة </th>
+                                        <th width="20%"> سجل رواتب الموظفين </th>
+                                        <th width="20%"> المقبوضات من الزبائن  </th>
+                                        <th width="20%">  المدفوعات إلى الموردين  </th>
+                                        <th width="15">   سجل أجور السائقين  </th>
 
                                     </tr>
                                     </thead>
@@ -71,42 +70,63 @@
         <!-- /.content -->
     </div>
 
-    <div id="advertModal" class="modal fade">
-        <div class="modal-dialog">
-            <form method="post" id="productForm" enctype="multipart/form-data">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">إضافة سيارة  </h4>
-                    </div>
-                    <div class="modal-body">
-
-
-                        <label> رقم السيارة </label>
-                        <input type="text" name="car_num" id="car_num" class="form-control"/>
-                        <br/>
-                        <label> نوع السيارة </label>
-                        <input type="text" name="car_type" id="car_type" class="form-control">
-                        <br/>
-                        <label> راتب السائق   </label>
-                        <input type="text" name="driver_salary" id="driver_salary" class="form-control">
-
-                        <br/>
-                        <label>  إسم السائق   </label>
-                        <input type="text" name="driver_name" id="driver_name" class="form-control">
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <center>
-                            <input type="hidden" name="_id" id="_id"/>
-                            <input type="hidden" name="operation" id="operation"/>
-                            <input type="submit" name="action" id="action" class="btn btn-success" value="إضافة"/>
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
-                        </center>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 @endsection
+@push('pageJs')
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $.ajaxSetup({
+
+                headers: {
+
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+                }
+
+            });
+
+            var table = $('#tableData').DataTable({
+                "language": {
+                    "processing": " جاري المعالجة",
+                    "paginate": {
+                        "first": "الأولى",
+                        "last": "الأخيرة",
+                        "next": "التالية",
+                        "previous": "السابقة"
+                    },
+                    "search": "البحث :",
+                    "loadingRecords": "جاري التحميل...",
+                    "emptyTable": " لا توجد بيانات",
+                    "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",
+                    "infoEmpty": "Showing 0 إلى 0 من 0 entries",
+                    "lengthMenu": "إظهار _MENU_ البيانات",
+                },
+                processing: true,
+
+                serverSide: true,
+
+                ajax: "{{ route('money.box.index') }}",
+
+                columns: [
+
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+
+                    {data: 'car', name: 'data.paid'},
+                    {data: 'emp', name: 'emp.salary'},
+                    {data: 'bill', name: 'bill.paid'},
+                    {data: 'importer', name: 'importer.paid'},
+                    {data: 'salary', name: 'salary.money_paid'},
+
+                    // {data: 'action', name: 'action', orderable: false, searchable: false},
+
+                ]
+
+            });
+
+        });
+
+    </script>>
+
+@endpush

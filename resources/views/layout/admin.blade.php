@@ -225,13 +225,23 @@
                     </ul>
 
                 </li>
-{{--                <li class="">--}}
-{{--                    <a href="{{url('/cars_maintainances')}}">--}}
-{{--                        <i class="fa fa-car"></i> <span> بطاقة مصاريف سيارة     </span>--}}
-{{--                        <span class="pull-right-container">--}}
-{{--              <i class="fa fa-angle-left pull-right"></i>--}}
-{{--            </span>--}}
-{{--                    </a>--}}
+                <li class="">
+                    <a href="{{url('/machines')}}">
+                        <i class="fa fa-first-order"></i> <span> بطاقة آلة   </span>
+                        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                    </a>
+                </li>
+          <li class="">
+              <a href="{{url('/peices_type')}}">
+                  <i class="fa fa-chain"></i> <span>  بطاقة نوع القطعة        </span>
+                  <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+              </a>
+
+          </li>
 
 
           <li class="treeview">
@@ -278,15 +288,6 @@
 
                 </li>
 
-                <li class="">
-                    <a href="{{url('/peices_type')}}">
-                        <i class="fa fa-chain"></i> <span>  بطاقة نوع القطعة        </span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-
-                </li>
           <li class="">
                     <a href="{{url('/money_box')}}">
                         <i class="fa fa-dropbox"></i> <span>  الصندوق المالي        </span>

@@ -12,7 +12,7 @@
 
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> الرئيسية</a></li>
-                    <li><a href="#">  المواد المصنعة الموجودة في المستودع       </a></li>
+                    <li><a href="#">  المواد المصنعة الموجودة في المستودع  </a></li>
 
                 </ol>
             </h6>

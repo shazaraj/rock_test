@@ -120,14 +120,15 @@ class CarController extends Controller
     public function  show_paid_form(Request $request){
         if ($request->ajax()) {
             // get latest driver.
+            $data = DriverSalary::all();
             $car= Car::latest()->first();
-            $data = DriverSalary::where('car_id','=',$car->id)->latest()->get();
+//            $data = DriverSalary::where('car_id','=',$car->id)->latest()->get();
 
             return Datatables::of($data)
 
                 ->addIndexColumn()
 
-//
+
 //                ->addColumn('action', function($row){
 //
 //
@@ -150,7 +151,7 @@ class CarController extends Controller
                     return Car::where('id','=',$car->car_id)->first()->driver_salary;
                 })
 
-                ->rawColumns(['action','driver_name','driver_salary'])
+                ->rawColumns(['driver_name','driver_salary'])
 
                 ->make(true);
 

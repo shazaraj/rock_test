@@ -9,12 +9,14 @@ use App\ClientBill;
 use App\ClientBillFactoriedMaterial;
 use App\ClientBillRawMaterial;
 use App\FactoriedMaterial;
+use App\ImporterInvoicesDetails;
 use App\Purchase;
 use App\RawMaterial;
 use App\TypeOfPeice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
 
 class TodayReportController extends Controller
 {
@@ -23,6 +25,7 @@ class TodayReportController extends Controller
         return view("admin.reports.report");
     }
     public function index(Request $request){
+
         if ($request->ajax()) {
 
             $purchases = Purchase::whereDate('created_at', Carbon::today())->get();
@@ -51,30 +54,20 @@ class TodayReportController extends Controller
         return view("admin.reports.today_report");
     }
     public function getSale(Request $request ,$day_repo){
+//        $sales = DB::table('client_bills')
+//            ->where('created_at', $day_repo)
+//            ->sum(\DB::raw(
+//                'client_bills.all_price'
+//            ));
+        $sales = DB::table('client_bills')->sum('all_price')->where('created_at', '=', $day_repo);
+//            $sales = ClientBill ::whereDate('created_at', '=',$day_repo)->withSum('all_price');
+//            $bay = ImporterInvoicesDetails::wherDate('date' ,'=',$day_repo)->get();
+//            $car = CarRent::whereDate('created_at' , '=',$day_repo)->get();
 
-        if ($request->ajax()){
-
-            $data = ClientBillRawMaterial ::whereDate('created_at', '=',$day_repo)->get();
-            return Datatables::of($data)
-
-                ->addIndexColumn()
-                ->addColumn('raw_material',function($raw){
-                    return RawMaterial::where('id','=',$raw->raw_id)->first()->name;
-                })
-                ->addColumn('action', function($row){
-
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
-
-                    return $btn;
-
-                })
-                ->rawColumns(['raw_material','action'])
-
-                ->make(true);
-
-            return;
-            }
-
-  return view("admin.reports.today_report");
+        return  response()->json($sales);
+//        return  response()->json(["sales"=>$sales , "bays"=>$bay, "car"=>$car]);
+    }
+    public function sale_report(Request $request){
+        return view("admin.reports.today_report");
     }
 }

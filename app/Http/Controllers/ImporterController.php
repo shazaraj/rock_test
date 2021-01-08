@@ -11,6 +11,7 @@ use App\ClientBillFactoriedMaterial;
 use App\ClientBillRawMaterial;
 use App\ClientType;
 use App\ImporterInvoices;
+use App\ImporterInvoicesDetails;
 use App\MainAccount;
 use App\RawMaterial;
 use App\TypeOfPeice;
@@ -206,11 +207,62 @@ class ImporterController extends Controller
 
     }
 
+
+//    public function client_sale_bills(Request $request){
+//        //
+//        if ($request->ajax()) {
+//
+////            = Client::all();
+//            $data = ClientBill::get();
+//
+////            $data = ClientBill::latest()->get();
+//
+//            return Datatables::of($data)
+//
+//                ->addIndexColumn()
+//
+//                ->addColumn('action', function ($row) {
+//
+//                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"><i class="fa fa-eye"></i></a>';
+//
+////                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
+//
+//
+//                    return $btn;
+//
+//                })
+//                ->addColumn('client',function ($raw){
+////                    $client = Client::all();
+//                    return Client::find($raw->client_id)->name;
+//                })
+////               ->addColumn('client',function($client){
+////                    return Client::where('id','=',$client->client_id)->first()->name;
+////                })
+//                ->rawColumns(['action','client'])
+//                ->make(true);
+//
+//            return;
+//        }
+//
+////        $bills = ClientBill::get()->remain;
+////        $client = Client::get()->name;
+//
+//        return view("admin.bills.client_sale_bills");
+//    }
+
+public function importer_sale_bills_details(Request $request,$id){
+        $data_id= ImporterInvoicesDetails::find($id);
+        $data_id["importer"] = Client::find($data_id->client_id)->name;
+        $data_id["material"] = RawMaterial::find($data_id->material_id)->name;
+
+    return  response()->json($data_id);
+
+}
     public function importer_sale_bills(Request $request){
         //
         if ($request->ajax()) {
 
-            $data = ClientBill::latest()->get();
+            $data = ImporterInvoicesDetails::latest()->get();
 
             return Datatables::of($data)
 
@@ -221,31 +273,26 @@ class ImporterController extends Controller
 
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
+//                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';
 
 
                     return $btn;
 
                 })
-                ->addColumn('bills',function ($row){
-
-                    return ClientBill::find($row->id)->remain;
-                })
-                ->addColumn('client'  ,function($row){
+                ->addColumn('importer'  ,function($row){
                     return Client::find($row->client_id)->name;
                 })
-                ->rawColumns(['action','bills','client'])
+                ->addColumn('material'  ,function($row){
+                    return RawMaterial::find($row->material_id)->name;
+                })
+                ->rawColumns(['action','importer','material'])
                 ->make(true);
 
             return;
         }
 
-        $bills = ClientBill::get();
-        $raws = ClientBillRawMaterial::get();
-        $factory = ClientBillFactoriedMaterial::get();
-
-        $clients = Client::where('client_type','=',1)->get();
-        return view("admin.bills.importer_sale_bills", compact(["clients","bills","factory","raws"]));
+//        $clients = Client::where('client_type','=',1)->get();
+        return view("admin.bills.importer_sale_bills");
 //        return view("admin.bills.importer_sale_bills");
     }
 

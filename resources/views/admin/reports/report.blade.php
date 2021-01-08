@@ -21,42 +21,44 @@
             <div class="col-md-5 pull-right text-right">
                 <div class="card pd-20 pd-sm-40 white">
                     <h3> التقارير اليومية </h3>
+                    <div class="row ">
                     <form action="" method="POST" id="date_form">
                         <br>
                         <h4 style="margin-right:15px;" > قم بتحديد اليوم</h4>
                         <br>
                         <br>
                         <br>
-                        <input type="date" class="form-control" id="day_repo" name="day_repo">
-                        <br>
-                        <br>
-                        <a href="{{url('getSale.today')}}" id="date_btn" type="submit" class="btn btn-primary form-control "> عرض النتيجة</a>
+                        <div class="col-md-8">
+                            <input type="date" class="form-control" id="day_repo" name="day_repo">
+                        </div>
+                        <div class="col-md-4">
+                            <a href="/today/report" id="date_btn" type="submit" class="btn btn-primary form-control "> عرض النتيجة</a>
+                        </div>
                     </form>
+                    </div>
                 </div>
             </div>
-
 
             <div class="col-md-5 pull-right text-right">
                 <div class="card pd-20 pd-sm-40">
                     <h3> التقارير الشهرية </h3>
 
-                        <br>
-                        <br>
-                        <h4 style="margin-right:15px;" > قم بتحديد الفترة الزمنية</h4>
-                        <div class="row input-daterange">
-                            <br>
-                            <br>
-                            <div class="col-md-4">
-                                <input type="date" name="from_date" id="from_date" class="form-control" />
-                            </div>
-                            <div class="col-md-4">
-                                <input type="date" name="to_date" id="to_date" class="form-control" />
+                    <br>
+                    <h4 style="margin-right:15px;" > قم بتحديد الفترة الزمنية</h4>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row input-daterange">
+                        <div class="col-md-4">
+                            <input type="date" name="from_date" id="from_date" class="form-control" placeholder="من" />
                         </div>
+                        <div class="col-md-4">
+                            <input type="date" name="to_date" id="to_date" class="form-control" placeholder="إلى" />
                         </div>
-                        <br>
-                        <br>
-                    <a href="{{url('/today/report')}}" type="submit" class="btn btn-primary form-control"> عرض النتيجة</a>
-
+                        <div class="col-md-4">
+                            <button type="button" name="filter" id="filter" class="btn btn-primary">عرض النتيجة</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,26 +79,25 @@
 
         });
         $('#date_btn').click(function (e) {
-            var day_repo_url = "{{ route('getSale.today') }}"+'/'+day_repo;
             e.preventDefault();
+            var day_repo = $('#day_repo').val();
+            // alert(day_repo);
+            var url ="{{ url('/getSale') }}" + '/' + day_repo;
+            window.location.href = url;
+            // return ;
+            $(this).html('جاري توليد التقارير...');
 
-            $(this).html('searching..');
-
-
+            // var from_date = $('#from_date').val();
+            // var to_date = $('#to_date').val();
             $.ajax({
-
+                // var day_repo = $(this).data('day_repo');
                 data: $('#date_form').serialize(),
-
-                url: day_repo_url,
-
-                type: "POST",
-
+                {{--url : "{{ route('getSale.today') }}" + '/' + day_repo,--}}
+                // type :"POST",
+                // url: day_repo_url,
                 dataType: 'json',
 
                 success: function (data) {
-                    $('#action').html('إضافة');
-
-
                     toastr.success('get date');
                     table.draw();
 
@@ -106,8 +107,6 @@
                 error: function (data) {
 
                     console.log('Error:', data);
-
-                    $('#post_btn').html('إضافة');
 
                 }
 
