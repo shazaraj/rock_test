@@ -66,8 +66,6 @@
 
         <input type="text" name="money_paid" id="money_paid">
 
-        &nbsp;
-
     </div>
 
 </div>
@@ -250,26 +248,6 @@
                         <label> الموبايل </label>
                         <input type="text" name="mobile" id="mobile" class="form-control">
                         <br/>
-
-                        {{--                        <div>--}}
-                        {{--                            <input type="checkbox" name="transportRentCh" value="transCh" >--}}
-                        {{--                            يوجد مصاريف نقل--}}
-                        {{--                            <br>--}}
-                        {{--                            <label> السيارة    </label>--}}
-                        {{--                            <select name="car_id" id="car_id" class="form-control" >--}}
-                        {{--                                @if(count($cars)> 0)--}}
-                        {{--                                    @foreach($cars as $main_account)--}}
-                        {{--                                        <option value="{{$main_account->id}}">{{$main_account->car_num}}</option>--}}
-                        {{--                                    @endforeach--}}
-                        {{--                                @endif--}}
-
-                        {{--                            </select>--}}
-                        {{--                            <br>--}}
-                        {{--                            <input type="radio"  name="transPaidType"> نقدي--}}
-                        {{--                            <input type="radio" name="transPaidType"> دين--}}
-                        {{--                            <br>--}}
-                        {{--                            <input type="text" name="rentCoast">--}}
-                        {{--                        </div>--}}
                         <label> نوع الحساب الرئيس </label>
                         <select name="account_id" id="account_id" class="form-control" >
                             @if(count($main_accounts)> 0)

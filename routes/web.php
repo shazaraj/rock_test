@@ -29,6 +29,7 @@ Route::resource('/purchases','PurchaseController');
 Route::resource('/sales','SaleController');
 Route::resource('/importer','ImporterController');
 Route::resource('/materials','ImporterDetailsController');
+Route::resource('/money_box','MoneyBoxController');
 Route::resource('/importer/bills','ImporterController@bills');
 Route::resource('/employees','EmpController');
 Route::resource('/receipt','ReceiptController');
@@ -99,8 +100,10 @@ Route::delete('/peices_type_materials/{id}/{raw_id}','TypeOfPeiceController@dest
 Route::get('store/raw_materials', 'StoreController@raw_materials')->name('store.raw_materials.index');
 Route::get('store/factoried_materials', 'StoreController@factoried_materials')->name('store.factoried_materials.index');
 
-Route::get('car/history', 'CarController@show_car_history')->name('car.history.index');
+//money box route
 Route::get('money_box', 'MoneyBoxController@index')->name('money.box.index');
+
+Route::get('car/history', 'CarController@show_car_history')->name('car.history.index');
 //Route::get('money_box', 'MoneyBoxController@getMoney')->name('money.box.index');
 //Route::get('/today/report', 'TodayReportController@getSale')->name('reports.today_report');
 Route::get('/getSale/{day_repo}', 'TodayReportController@getSale')->name('reports.today_report');
