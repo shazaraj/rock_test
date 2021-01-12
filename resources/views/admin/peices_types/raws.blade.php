@@ -6,7 +6,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class=phonecontent-header">
+        <section class="content-header">
 
             <h6 style="text-align:right;direction: rtl;">
 
@@ -70,7 +70,7 @@
             </div>
             <!-- /.box -->
 
-            </phone>
+        </section>
             <!-- /.content -->
     </div>
 

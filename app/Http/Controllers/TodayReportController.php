@@ -17,6 +17,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\DB;
+use function Matrix\add;
+use function Matrix\directsum;
 
 class TodayReportController extends Controller
 {
@@ -53,18 +55,26 @@ class TodayReportController extends Controller
 
         return view("admin.reports.today_report");
     }
-    public function getSale(Request $request ,$day_repo){
+    public function getSale(Request $request ,$day_repo = null){
+//        $day_repo = null;
 //        $sales = DB::table('client_bills')
 //            ->where('created_at', $day_repo)
 //            ->sum(\DB::raw(
 //                'client_bills.all_price'
 //            ));
-        $sales = DB::table('client_bills')->sum('all_price')->where('created_at', '=', $day_repo);
-//            $sales = ClientBill ::whereDate('created_at', '=',$day_repo)->withSum('all_price');
+//        $sales = DB::table('client_bills')->sum('all_price')->where('created_at', '=', created_at);
+//            $sale = ClientBill ::whereDate('created_at', '=',$day_repo)->get();
+//            $sales = sum($sale->all_price);
+        if (!empty($day_repo)) {
+            $sales = DB::table('client_bills')
+                ->where('created_at', $day_repo)
+                ->sum('all_price');
 //            $bay = ImporterInvoicesDetails::wherDate('date' ,'=',$day_repo)->get();
 //            $car = CarRent::whereDate('created_at' , '=',$day_repo)->get();
+        }
+            return view("admin.reports.today_report",compact('sales'));
 
-        return  response()->json($sales);
+//        return  response()->json($sales);
 //        return  response()->json(["sales"=>$sales , "bays"=>$bay, "car"=>$car]);
     }
     public function sale_report(Request $request){

@@ -90,6 +90,13 @@ class ProductionCardController extends Controller
 
 
             ]);
+        $store = StoreFacoriedMaterail::where('type_of_peice_id','=',$request->type_of_peice_id)->count();
+        if($store > 0 ){
+
+           $upStore =StoreFacoriedMaterail::where('type_of_peice_id','=',$request->type_of_peice_id)->get()->first();
+            $upStore->quantity+=$request->count;
+            $upStore->save();
+        }else{
             StoreFacoriedMaterail::updateOrCreate(['type_of_peice_id' => $request->type_of_peice_id],
 
             [
@@ -98,7 +105,7 @@ class ProductionCardController extends Controller
 
 
             ]);
-
+        }
         return response()->json(['success' => ' تمت الإضافة بنجاح    .']);
 
     }

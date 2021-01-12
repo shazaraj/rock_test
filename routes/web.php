@@ -92,7 +92,7 @@ Route::post('/car/paid','CarController@store_paid')->name("car.paid.store");
 Route::delete('/car/paid/{id}','CarController@destroy_paid')->name("car.paid.delete");
 
 Route::get('/peices_type_materials/{id}','TypeOfPeiceController@get_materials')->name("peices_type.get_materials");
-Route::post('/peices_type_materials/{id}','TypeOfPeiceController@store_material')->name("peices_type.raws.store");
+Route::post('/peices_type_materials/{id}','TypeOfPeipeices_type.get_materialsceController@store_material')->name("peices_type.raws.store");
 Route::get('/peices_type_materials/{id}/{raw_id}/raw','TypeOfPeiceController@edit_material')->name("peices_type.raws.edit");
 Route::delete('/peices_type_materials/{id}/{raw_id}','TypeOfPeiceController@destroy_material')->name("peices_type.raws.destory");
 
@@ -106,6 +106,6 @@ Route::get('money_box', 'MoneyBoxController@index')->name('money.box.index');
 Route::get('car/history', 'CarController@show_car_history')->name('car.history.index');
 //Route::get('money_box', 'MoneyBoxController@getMoney')->name('money.box.index');
 //Route::get('/today/report', 'TodayReportController@getSale')->name('reports.today_report');
-Route::get('/getSale/{day_repo}', 'TodayReportController@getSale')->name('reports.today_report');
+Route::get('/getSale/??{day_repo}', 'TodayReportController@getSale')->name('reports.today_report');
 Route::get('/getSale', 'TodayReportController@sale_report')->name('sales.report');
 Route::get('/month/report', 'MonthReportController@index')->name('reports.month_report');

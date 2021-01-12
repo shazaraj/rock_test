@@ -32,15 +32,22 @@
                         <div class="col-md-11 pull-right text-right">
                             <div class="table-responsive">
                                 <br/>
-                                <h4>
+                                <h3>
                                     <ul>
-                                        <h1 id="sales"> المقبوضات <span class="badge bage-pill badge-info" >New</span></h1>
-                                        <li> المدفوعات </li><span class="badge badge-pill badge-info">Info</span>
-                                        <li> اجور سيارة </li><span class="badge badge-pill badge-warning">Warning</span>
-                                        <li> الديون </li><span class="badge badge-pill badge-danger">Danger</span>
-                                        <li> الارباح </li><span class="badge badge-pill badge-success">Success</span>
+{{--                                        <li type="button" class="btn btn-primary">--}}
+{{--                                            المقبوضات = <span class="badge bg-danger ms-2">{{$sales}}</span>--}}
+{{--                                        </li>--}}
+                                        <li> المقبوضات <span class="btn btn-primary">client {{$sales ?? '0'}}</span></li>
+                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
+                                        <li> المدفوعات    <span class="btn btn-info"> importer</span></li>
+                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
+                                        <li> اجور سيارة  <span class="btn btn-warning"> car </span> </li>
+                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
+                                        <li> الديون  <span class="btn btn-danger">remain</span></li>
+                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
+                                        <li> الارباح  <span class="btn btn-success"> totals</span></li>
                                     </ul>
-                                </h4>
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -87,7 +94,7 @@
                 $.get("{{ route('sales.report') }}" , function (data) {
 
                     $('#sales').val(sales);
-                    // $('#bays').val(bays);
+                    // $('#im_bey').val(im_bey);
                     // $('#car').val(car);
 
 

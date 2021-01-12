@@ -6,7 +6,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class=phonecontent-header">
+        <section class="content-header">
 
             <h6 style="text-align:right;direction: rtl;">
 
@@ -32,7 +32,7 @@
                             <input type="date" class="form-control" id="day_repo" name="day_repo">
                         </div>
                         <div class="col-md-4">
-                            <a href="/today/report" id="date_btn" type="submit" class="btn btn-primary form-control "> عرض النتيجة</a>
+                            <a href="{{url('/getSale')}}" id="date_btn" type="submit" class="btn btn-primary form-control "> عرض النتيجة</a>
                         </div>
                     </form>
                     </div>
