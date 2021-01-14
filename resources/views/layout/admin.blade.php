@@ -16,6 +16,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{URL::asset('mais/bower_components/Ionicons/css/ionicons.min.css')}}">
   <link rel="stylesheet" href="{{URL::asset('mais/bower_components/select2/dist/css/select2.css')}}">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="{{URL::asset('mais/dist/css/AdminLTE.css')}}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -49,7 +50,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.php" class="logo" style="float:right;">
+    <a href="#" class="logo" style="float:right;">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><img src="images/logo_min.jpg" class="user-image img-rounded"   alt=""></span>
       <!-- logo for regular state and mobile devices -->
@@ -307,7 +308,7 @@
               </a>
               <ul class="treeview-menu">
                   <li><a href="{{route('receipt.index')}}"><i class="fa fa-empire"></i>  وصل العميل   </a></li>
-                  <li><a href="#"><i class="fa fa-empire"></i>  كشف حساب المورد  </a></li>
+                  <li><a href="{{url('/importer_bill')}}"><i class="fa fa-empire"></i>  كشف حساب المورد  </a></li>
 {{--                  <li><a href="{{route('importer.bills')}}"> <i class="fa fa-empire"></i>   كشف حسابات الموردين    </a></li>--}}
 
               </ul>
@@ -327,6 +328,16 @@
 {{--                  <li><a href="{{url('/today/report')}}"> <i class="fa fa-paste"></i>    تقرير هذا الشهر    </a></li>--}}
 
               </ul>
+
+          </li>
+
+          <li class="">
+              <a href="#">
+                  <i class="fa fa-upload"></i> <span>  إنشاء نسخة احتياطية </span>
+                  <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+              </a>
 
           </li>
 
@@ -468,6 +479,9 @@
 {{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/r-2.2.1/datatables.min.js"></script>--}}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('app-assets\js\ex-component-dragndrop.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/card/2.5.0/jquery.card.min.js" integrity="sha512-YH9A3v47SmVpIxVU/xDVf90D8ruoV4o8m2JU3WvAbbTtnlF2jv80aNst2WhPnyPgjFaztpVXavmippJQNL1Tsg==" crossorigin="anonymous"></script>
+{{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>--}}
 
 <script>
   $(document).ready(function () {

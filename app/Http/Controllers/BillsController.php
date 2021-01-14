@@ -14,7 +14,7 @@ class BillsController extends Controller
         return view("admin.importers.importer_bills" );
 
     }
-   public function printInvoice(){
+   public function printInvoice($data){
 
        $output = '<!DOCTYPE html>
 <html lang="ar">
@@ -50,30 +50,30 @@ class BillsController extends Controller
 							</div>
 							<div class="col-md-7" dir="rtl">
 								<p>
-								اسم الزبون
+								اسم الزبون : '.$data->bill->client_name.'
 								</p>
 							</div>
 							<div class="col-md-12" dir="rtl">
 								<p>
-									اسم المادة
+									اسم المادة :'.$data->bill->material_name.'
 								</p>
 								<p>
-                              
+
                                 </p>
                             </div>
 							<div class="col-md-12" dir="rtl">
 							<p>
-							الكمية
+							الكمية :'.$data->bill->amount.'
 							</p>
 							</div>
 							<div class="col-md-12" dir="rtl">
 								<p>
-								السعر المتبقي
+								 السعر المتبقي : '.$data->bill->remain.'
 								</p>
 							</div>
 							<div class="col-md-12" dir="rtl">
 								<p>
-									السعر الكلي
+									السعر الكلي : '.$data->bill->all_pr.'
 								</p>
 								<p>
 
@@ -81,7 +81,7 @@ class BillsController extends Controller
 							</div>
 							<div class="col-md-12" dir="rtl">
 								<p>
-									السعر المدفوع
+									السعر المدفوع :'.$data->bill->paid.'
 								</p>
 								<p>
 
@@ -89,7 +89,7 @@ class BillsController extends Controller
 							</div>
 							<div class="col-md-12" dir="rtl">
 								<p>
-									التاريخ
+									التاريخ : '.$data->bill->bill_date.'
 								</p>
 								<p>
 
@@ -101,7 +101,7 @@ class BillsController extends Controller
 </div>
 <hr>';
        return $output;
-//       return view('client_sale_bilks');
+//       return view('client_sale_bils');
 
    }
 }

@@ -86,7 +86,8 @@ class ImporterDetailsController extends Controller
                 'client_id' => $request->client_id,
                 'material_id' => $request->material_id,
                 'amount' => $request->amount,
-                'price' => $request->price,
+                'paid' => $request->paid,
+                'remain' => $request->remain,
                 'date' => $request->date,
 
             ]);
@@ -124,7 +125,7 @@ class ImporterDetailsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ClientType  $clientType
+     * @param  \App\ImporterInvoicesDetails  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -136,10 +137,9 @@ class ImporterDetailsController extends Controller
                 'material_id' => $request->get("material_id"),
                 'amount' => $request->get("amount"),
                 'price' => $request->get("price"),
-//                'price_sale' => $request->get("price_sale"),
-//                'total_sale' => $request->get("total_sale"),
+                'paid' => $request->get("paid"),
+                'remain' => $request->get("remain"),
                 'date' => $request->get("date"),
-
             ]);
 
 

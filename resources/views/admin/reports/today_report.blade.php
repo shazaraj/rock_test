@@ -20,52 +20,78 @@
 
         <!-- Main content -->
         <section class="content">
+            <h4>
+                <b> تقرير اليوم المحدد :_ {{$date??''}} </b>
+            </h4>
+            <br>
+            <div class="row " dir="rtl">
+                <div class="col-12">
 
-            <!-- Default box -->
-            <div class="box">
-                <div class="box-header with-border">
-                    <h4> التقارير اليومية</h4>
-                </div>
-                <div class="box-body">
-
-                    <div class="row" style="margin-top: 30px;">
-                        <div class="col-md-11 pull-right text-right">
-                            <div class="table-responsive">
-                                <br/>
-                                <h3>
-                                    <ul>
-{{--                                        <li type="button" class="btn btn-primary">--}}
-{{--                                            المقبوضات = <span class="badge bg-danger ms-2">{{$sales}}</span>--}}
-{{--                                        </li>--}}
-                                        <li> المقبوضات <span class="btn btn-primary">client {{$sales ?? '0'}}</span></li>
-                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
-                                        <li> المدفوعات    <span class="btn btn-info"> importer</span></li>
-                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
-                                        <li> اجور سيارة  <span class="btn btn-warning"> car </span> </li>
-                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
-                                        <li> الديون  <span class="btn btn-danger">remain</span></li>
-                                        <div class="link-black">ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ</div>
-                                        <li> الارباح  <span class="btn btn-success"> totals</span></li>
-                                    </ul>
-                                </h3>
+                    <div class="row rtl" >
+                        <div class="row">
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-blue-gradient"><i class="fa fa-dollar"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">المقبوضات</span>
+                                        <h3 class="info-box-number"> {{$sales??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-green-gradient"><i class="fa fa-btc"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">المدفوعات</span>
+                                        <h3 class="info-box-number">{{$payments??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-car"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">أجور سيارة</span>
+                                        <h3 class="info-box-number">{{$car??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-black-gradient"><i class="fa fa-money"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">الديون</span>
+                                        <h3 class="info-box-number">{{$remain??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-red-gradient"><i class="fa fa-thumbs-o-down"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">الخسارة</span>
+                                        <h3 class="info-box-number">{{$loss??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-blue-active"><i class="fa fa-thumbs-o-up"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">صافي الارباح </span>
+                                        <h3 class="info-box-number">{{$totals??''}}</h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                </div>
 
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer border-dark">
-                    <div align="left">
-                        <button type="button" id="details"
-                                data-toggle="" data-target="" class="btn bg-light-blue">
-                            details
-                        </button>
-                    </div>
-                </div>
-                <!-- /.box-footer-->
             </div>
-            <!-- /.box -->
 
         </section>
         <!-- /.content -->
@@ -94,8 +120,13 @@
                 $.get("{{ route('sales.report') }}" , function (data) {
 
                     $('#sales').val(sales);
-                    // $('#im_bey').val(im_bey);
-                    // $('#car').val(car);
+                    $('#payments').val(payments);
+                    $('#car').val(car);
+                    $('#remain').val(remain);
+                    $('#totals').val(totals);
+                    $('#loss').val(loss);
+                    $('#date').val(date);
+
 
 
                 })

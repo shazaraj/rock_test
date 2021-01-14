@@ -119,7 +119,7 @@
                             <input type="hidden" name="_id" id="_id"/>
                             <input type="hidden" name="operation" id="operation"/>
 {{--                            @foreach($invoices as $invoice)--}}
-                            <button type="button"   class="btn btn-success printCart" data-id="_id"> طباعة <i class="fa fa-print"></i> </button>
+                            <button type="button"   class="btn btn-success printData" data-id="print_id"> طباعة <i class="fa fa-print"></i> </button>
 {{--                            @endforeach--}}
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">إغلاق</button>
                         </center>
@@ -246,7 +246,7 @@
             //
             //
             // });
-            $(".printCart").click(function (e) {
+            $(".printData").click(function (e) {
                 e.preventDefault();
                 var item = $(this);
 
@@ -255,20 +255,23 @@
 
                 alert("قيد الطباعة");
                 $.ajax({
-                    url:"{{route('print.invoice')}}",
-                    method:"POST",
-                    data:{
-                        '_token':$('input[name=_token]').val()
+                    data: {
+                        "_token":$("input[name=_token]").val()
+
                     },
-                    // dataType:"json",
+                    url:"{{route('print.invoice')}}"+ '/' + item_id +'/data' ,
+                    type:" POST",
+                    dataType:"json",
+                    timeout:4000,
                     success:function(data)
                     {
-                        $("#print_form_1_print").html(data);
-                        printReport(data);
+                        $("#advertModal").html(data);
+                        printInvoice(data);
 
                     },
                     error:function(data){
                         alert(data.responseText);
+
                     }
                 })
 

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Sale;
 use App\QuntityType;
 use App\RawMaterial;
+use App\Store;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -42,13 +43,10 @@ class SaleController extends Controller
                 ->addColumn('action', function($row){
 
 
-
                     $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">تعديل</a>';
 
 
-
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">حذف</a>';
-
 
 
                     return $btn;
@@ -95,9 +93,23 @@ class SaleController extends Controller
                 'single_price' => $request->single_price,
                 'all_price' => $request->all_price,
                 'details' => $request->details,
-
-
             ]);
+        $store = Store::where('raw_id','=',$request->raw_id)->count();
+        if($store > 0 ){
+
+            $sale_store =Store::where('raw_id','=',$request->raw_id)->get()->first();
+            $sale_store->amount-=$request->amount;
+            $sale_store->save();
+        }else{
+            Store::updateOrCreate(['raw_id' => $request->raw_id],
+
+                [
+                    'raw_id' => $request->raw_id,
+                    'amount' => $request->amount,
+
+
+                ]);
+        }
 
 
         return response()->json(['success' => ' تمت الإضافة بنجاح    .']);

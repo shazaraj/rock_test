@@ -45,14 +45,15 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="10%"> اسم المورد </th>
+                                        <th width="15%"> اسم المورد </th>
                                         <th width="15%"> اسم المادة </th>
                                         <th width="15%">  الكمية  </th>
-                                        <th width="20%"> سعر الشراء </th>
-{{--                                        <th width="15%">السعر الإجمالي</th>--}}
-                                        <th width="20%">  التاريخ</th>
+                                        <th width="10%"> سعر الشراء </th>
+                                        <th width="10%"> المبلغ المدفوع </th>
+                                        <th width="10%">المبلغ المتبقي </th>
+                                        <th width="10%">  التاريخ</th>
 
-                                        <th width="15%">العمليات</th>
+                                        <th width="10%">العمليات</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -107,6 +108,12 @@
                         <br/>
                         <label> سعر الشراء </label>
                         <input type="text" name="price" id="price" class="form-control">
+                        <br/>
+                        <label>المبلغ المدفوع </label>
+                        <input type="text" name="paid" id="paid" class="form-control">
+                        <br/>
+                        <label> المبلغ المتبقي </label>
+                        <input type="text" name="remain" id="remain" class="form-control">
                         <br/>
 {{--                        <label> سعر المبيع </label>--}}
 {{--                        <input type="text" name="price_sale" id="price_sale" class="form-control">--}}
@@ -183,6 +190,8 @@
                     {data: 'name', name: 'name'},
                     {data: 'amount', name: 'amount'},
                     {data: 'price', name: 'price'},
+                    {data: 'paid', name: 'paid'},
+                    {data: 'remain', name: 'remain'},
                     {data: 'date', name: 'date'},
                     {data: 'action', name: 'action', orderable: true, searchable: true},
 
@@ -222,8 +231,8 @@
                     $('#client_id').val(data.client_id);
                     $('#material_name').val(data.material_name);
                     $('#amount').val(data.amount);
-                    // $('#item_price').val(data.item_price);
-                    // $('#price_sale').val(data.price_sale);
+                    $('#paid').val(data.paid);
+                    $('#remain').val(data.remain);
                     $('#price').val(data.price);
                     $('#date').val(data.date);
 

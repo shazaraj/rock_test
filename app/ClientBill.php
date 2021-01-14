@@ -8,6 +8,9 @@ class ClientBill extends Model
 {
     //فاتورة زبون
     protected $fillable =["client_id","all_price","paid","remain","created_at"];
+    protected $casts =[
+        'created_at' =>'date',
+    ];
         public function raw_materials(){
             return $this->hasMany("App\ClientBillRawMaterial",'bill_id','id');
         }

@@ -17,6 +17,7 @@ use App\RawMaterial;
 use App\TypeOfPeice;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
 
 class ImporterController extends Controller
 
@@ -295,5 +296,41 @@ public function importer_sale_bills_details(Request $request,$id){
         return view("admin.bills.importer_sale_bills");
 //        return view("admin.bills.importer_sale_bills");
     }
+
+    public function importer_bill(Request $request){
+        //
+        if ($request->ajax()) {
+
+            $data = ImporterInvoicesDetails::latest()->get();
+
+            return Datatables::of($data)
+
+                ->addIndexColumn()
+
+                ->addColumn('importer'  ,function($row){
+
+                    return Client::find($row->client_id)->name;
+
+                })
+//                ->addColumn('remain'  ,function($row){
+//                    $remain_client= DB::table('importer_invoices_details')
+//                        ->where('client_id','=',$row->client_id)
+//                        ->sum('remain');
+//                    return $remain_client;
+
+//                })
+                ->rawColumns(['importer','remain'])
+                ->make(true);
+
+            return;
+        }
+//             $remain_client= DB::table('importer_invoices_details')
+//                 ->where('client_id','=',$request->client_id)
+//                 ->sum('remain');
+//        $clients = Client::where('client_type','=',1)->get();
+        return view("admin.importers.importer_sale");
+//        return view("admin.bills.importer_sale_bills");
+    }
+
 
 }

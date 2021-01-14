@@ -50,13 +50,13 @@
                     <br>
                     <div class="row input-daterange">
                         <div class="col-md-4">
-                            <input type="date" name="from_date" id="from_date" class="form-control" placeholder="من" />
+                             من <input type="date" name="from_date" id="from_date" class="form-control" placeholder="من" />
                         </div>
                         <div class="col-md-4">
-                            <input type="date" name="to_date" id="to_date" class="form-control" placeholder="إلى" />
+                          إلى   <input type="date" name="to_date" id="to_date" class="form-control" placeholder="إلى" />
                         </div>
                         <div class="col-md-4">
-                            <button type="button" name="filter" id="filter" class="btn btn-primary">عرض النتيجة</button>
+                            <a href="{{url('/month/report')}}" type="button" name="filter" id="filter" class="btn btn-primary">عرض النتيجة</a>
                         </div>
                     </div>
                 </div>
@@ -82,11 +82,17 @@
             e.preventDefault();
             var day_repo = $('#day_repo').val();
             // alert(day_repo);
-            var url ="{{ url('/getSale') }}" + '/' + day_repo;
-            window.location.href = url;
-            // return ;
-            $(this).html('جاري توليد التقارير...');
 
+            if(day_repo != '')
+            {
+                var url ="{{ url('/getSale') }}" + '/' + day_repo;
+                window.location.href = url;
+                // return ;
+                $(this).html('جاري توليد التقارير...');
+            }
+            else {
+                alert('يجب تحديد التاريخ أولا !');
+            }
             // var from_date = $('#from_date').val();
             // var to_date = $('#to_date').val();
             $.ajax({
@@ -113,5 +119,42 @@
             });
 
         });
+        $('#filter').click(function (e) {
+            e.preventDefault();
+            var from_date = $('#from_date').val();
+            var to_date = $('#to_date').val();
+            // aler
+            // alert(from_date);
+            // alert(to_date);
+
+            if(from_date != '' &&  to_date != '')
+            {
+                var url ="{{ url('/month/report') }}" + '/' + from_date + '/' + to_date ;
+                window.location.href = url;
+                $(this).html('جاري توليد التقارير...');
+
+            }
+            else {
+                alert('كلا التاريخين مطلوبين');
+            }
+            // return ;
+
+            // var from_date = $('#from_date').val();
+            // var to_date = $('#to_date').val();
+            $.ajax({
+                // var day_repo = $(this).data('day_repo');
+                // data: $('#date_form').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    toastr.success('get date');
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+
+        });
+
     </script>
 @endpush

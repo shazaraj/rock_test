@@ -56,26 +56,36 @@ class TodayReportController extends Controller
         return view("admin.reports.today_report");
     }
     public function getSale(Request $request ,$day_repo = null){
-//        $day_repo = null;
-//        $sales = DB::table('client_bills')
-//            ->where('created_at', $day_repo)
-//            ->sum(\DB::raw(
-//                'client_bills.all_price'
-//            ));
-//        $sales = DB::table('client_bills')->sum('all_price')->where('created_at', '=', created_at);
-//            $sale = ClientBill ::whereDate('created_at', '=',$day_repo)->get();
-//            $sales = sum($sale->all_price);
-        if (!empty($day_repo)) {
+        if ($request->day_repo != '') {
+            $date = $request->day_repo;
             $sales = DB::table('client_bills')
-                ->where('created_at', $day_repo)
-                ->sum('all_price');
-//            $bay = ImporterInvoicesDetails::wherDate('date' ,'=',$day_repo)->get();
-//            $car = CarRent::whereDate('created_at' , '=',$day_repo)->get();
-        }
-            return view("admin.reports.today_report",compact('sales'));
+                ->where('created_at','=',$day_repo)
+                ->sum('paid');
+            $payments = DB::table('importer_invoices_details')
+                ->where('date','=',$day_repo)
+                ->sum('paid');
+            $car = DB::table('car_rents')
+                ->where('created_at','=',$day_repo)
+                ->sum('paid');
+            $car_maintainance = DB::table('car_maintainances')
+                ->where('created_at','=',$day_repo)
+                ->sum('money');
+            $remain_client= DB::table('client_bills')
+                ->where('created_at','=',$day_repo)
+                ->sum('remain');
+            $remain_importer= DB::table('importer_invoices_details')
+                ->where('date','=',$day_repo)
+                ->sum('remain');
+            $other_payments= DB::table('other_payments')
+                ->where('created_at','=',$day_repo)
+                ->sum('money');
+            $remain = $remain_client - $remain_importer ;
+            $totals = ( $sales + $car ) - ($payments + $car_maintainance +$other_payments);
+            $loss = $payments + $car_maintainance +$other_payments;
 
-//        return  response()->json($sales);
-//        return  response()->json(["sales"=>$sales , "bays"=>$bay, "car"=>$car]);
+        }
+
+        return view("admin.reports.today_report",compact(["date","sales","payments" ,"car","remain" ,"totals","loss"]));
     }
     public function sale_report(Request $request){
         return view("admin.reports.today_report");

@@ -17,59 +17,82 @@
                 </ol>
             </h6>
         </section>
+        <!-- /.content -->
 
-        <!-- Main content -->
         <section class="content">
+            <h4>
+                <b> تقرير الفترة الزمنية من تاريخ :_ {{$from??''}} إلى تاريخ :_ {{$to??''}}  </b>
+            </h4>
+            <br>
+            <div class="row " dir="rtl">
+                <div class="col-12">
 
-            <!-- Default box -->
-            <div class="box">
-                <div class="box-header with-border">
-
-
-                </div>
-                <div class="box-body">
-
-                    <div class="row" style="margin-top: 30px;">
-                        <div class="col-md-11 pull-right text-right">
-                            <div class="table-responsive">
-                                <br/>
-                                <div align="right">
-
+                    <div class="row rtl" >
+                        <div class="row">
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-blue-gradient"><i class="fa fa-dollar"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">المقبوضات</span>
+                                        <h3 class="info-box-number"> {{$sales??''}}</h3>
+                                    </div>
                                 </div>
-                                <br/><br/>
-                                <table id="tableData" class="table table-bordered table-striped" dir="rtl">
-                                    <thead>
-                                    <tr>
-
-                                        <th width="5%"> #</th>
-                                        <th width="25%"> رمز العملية</th>
-                                        <th width="25%"> المادة  </th>
-                                        <th width="10%">  من حساب</th>
-                                        <th width="10%"> إلى حساب </th>
-                                        <th width="10%">  البيان    </th>
-                                        <th width="10%">  المبلغ    </th>
-                                        <th width="10%">  التاريخ    </th>
-
-                                    </tr>
-                                    </thead>
-                                </table>
-
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-green-gradient"><i class="fa fa-btc"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">المدفوعات</span>
+                                        <h3 class="info-box-number">{{$payments??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-yellow-gradient"><i class="fa fa-car"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">أجور سيارة</span>
+                                        <h3 class="info-box-number">{{$car??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <br>
+                        <div class="row">
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-black-gradient"><i class="fa fa-money"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">الديون</span>
+                                        <h3 class="info-box-number">{{$remain??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-red-gradient"><i class="fa fa-thumbs-o-down"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">الخسارة</span>
+                                        <h3 class="info-box-number">{{$loss??''}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-blue-active"><i class="fa fa-thumbs-o-up"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">صافي الارباح </span>
+                                        <h3 class="info-box-number">{{$totals??''}}</h3>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-
-                </div>
-                <!-- /.box-footer-->
             </div>
-            <!-- /.box -->
+
 
         </section>
-        <!-- /.content -->
     </div>
 
 
@@ -90,54 +113,19 @@
 
             });
 
-            $('.input-daterange').datepicker({
-                todayBtn:'linked',
-                format:'yyyy-mm-dd',
-                autoclose:true
-            });
 
-            load_data();
-
-            function load_data(from_date = '', to_date = '')
-            {
-                var table = $('#tableData').DataTable({
-                    "language": {
-                        "processing": " جاري المعالجة",
-                        "paginate": {
-                            "first": "الأولى",
-                            "last": "الأخيرة",
-                            "next": "التالية",
-                            "previous": "السابقة"
-                        },
-                        "search": "البحث :",
-                        "loadingRecords": "جاري التحميل...",
-                        "emptyTable": " لا توجد بيانات",
-                        "info": "من إظهار _START_ إلى _END_ من _TOTAL_ النتائج",
-                        "infoEmpty": "Showing 0 إلى 0 من 0 entries",
-                        "lengthMenu": "إظهار _MENU_ البيانات",
-                    },
-                    processing: true,
-
-                    serverSide: true,
-
-                    ajax: "{{ route('reports.month_report') }}",
-
-                    columns: [
-
-                        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-
-                        {data: 'name', name: 'name'},
-                        {data: 'amount', name: 'amount'},
-                        {data: 'all_price', name: 'all_price'},
+            $.get("{{ route('reports.month') }}" , function (data) {
+                $('#sales').val(sales);
+                $('#payments').val(payments);
+                $('#car').val(car);
+                $('#remain').val(remain);
+                $('#totals').val(totals);
+                $('#loss').val(loss);
+                $('#from').val(from);
+                $('#to').val(to);
 
 
-
-                    ]
-
-                });
-            }
-
-
+            })
 
 
         });
