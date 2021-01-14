@@ -28,8 +28,8 @@ class TypeOfPeiceController extends Controller
                 ->addColumn('action', function ($row) {
 
 
-                    $btn = '<a href="' . route('peices_type.get_materials', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
-                    $btn .= '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-edit"></i></a>';
+//                    $btn = '<a href="' . route('peices_type.get_materials', $row->id) . '" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="View" class="edit btn btn-primary btn-sm viewProduct"> <i class="fa fa-eye"></i></a> &nbsp;';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-edit"></i></a>';
 
 
                     $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></i></a>';

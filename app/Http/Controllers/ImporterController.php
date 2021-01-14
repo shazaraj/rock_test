@@ -43,11 +43,11 @@ class ImporterController extends Controller
 
 
 
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">تعديل</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct"> <i class="fa fa-edit"></i></a>';
 
 
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct">حذف</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProduct"><i class="fa fa-trash-o"></a>';
 
 
 
@@ -312,22 +312,12 @@ public function importer_sale_bills_details(Request $request,$id){
                     return Client::find($row->client_id)->name;
 
                 })
-//                ->addColumn('remain'  ,function($row){
-//                    $remain_client= DB::table('importer_invoices_details')
-//                        ->where('client_id','=',$row->client_id)
-//                        ->sum('remain');
-//                    return $remain_client;
-
-//                })
                 ->rawColumns(['importer','remain'])
                 ->make(true);
 
             return;
         }
-//             $remain_client= DB::table('importer_invoices_details')
-//                 ->where('client_id','=',$request->client_id)
-//                 ->sum('remain');
-//        $clients = Client::where('client_type','=',1)->get();
+
         return view("admin.importers.importer_sale");
 //        return view("admin.bills.importer_sale_bills");
     }

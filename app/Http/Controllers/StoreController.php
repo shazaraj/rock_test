@@ -25,9 +25,6 @@ class StoreController extends Controller
                     return TypeOfPeice::find($row->type_of_peice_id)->name;
                 })
 
-
-
-
                 ->rawColumns([  'type'])
 
                 ->make(true);

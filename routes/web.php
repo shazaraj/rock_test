@@ -54,12 +54,12 @@ Route::get('bills/{id}','ClientController@getbills');
 Route::get('client_sale_bills', 'ClientController@client_sale_bills')->name("client.sale");
 Route::get('client_sale_bills/{id}/edit', 'ClientController@getbills')->name("client.sale1");
 Route::get('importer_sale_bills', 'ImporterController@importer_sale_bills')->name("importer.sale");
-//Route::get('importer_sale_bills/{id}/edit', 'ImporterController@importer_sale_bills')->name("importer.sale1");
 Route::get('importer_sale_bills/{id}/details', 'ImporterController@importer_sale_bills_details')->name("importer.sale1");
 
 ///report sale
 
 Route::get('/report', 'TodayReportController@getRepo');
+Route::get('importer_bill', 'ImporterController@importer_bill');
 
 
 // importer bills ticket

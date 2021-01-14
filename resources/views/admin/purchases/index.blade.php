@@ -45,15 +45,15 @@
                                     <tr>
 
                                         <th width="5%"> #</th>
-                                        <th width="25%"> اسم المادة</th>
+                                        <th width="10%"> اسم المادة</th>
                                         <th width="10%"> نوع الكمية</th>
-                                        <th width="5%"> الكمية</th>
-                                        <th width="5%"> السعر الافرادي</th>
-                                        <th width="5%">    السعر الكلي</th>
-                                        <th width="10%"> تاريخ العملية  </th>
-                                        <th width="5%">    تفاصيل اخرى  </th>
+                                        <th width="10%"> الكمية</th>
+                                        <th width="10%"> السعر الافرادي</th>
+                                        <th width="10%">    السعر الكلي</th>
+                                        <th width="20%"> تاريخ العملية  </th>
+                                        <th width="15%">    تفاصيل اخرى  </th>
 
-                                        <th width="20%">العمليات</th>
+                                        <th width="10%">العمليات</th>
                                     </tr>
                                     </thead>
                                 </table>

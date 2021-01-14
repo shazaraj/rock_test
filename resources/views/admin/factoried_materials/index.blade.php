@@ -47,7 +47,7 @@
                                         <th width="5%"> #</th>
                                         <th width="25%"> نوع المادة </th>
                                         <th width="20%"> الكمية</th>
-                                        <th width="310%"> العامل</th>
+                                        <th width="30%"> العامل</th>
 
                                         <th width="20%">العمليات</th>
                                     </tr>
